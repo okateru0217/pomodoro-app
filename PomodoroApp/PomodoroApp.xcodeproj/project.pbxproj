@@ -37,6 +37,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B1295D9D26154E5800A165A0 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				B1860FBE2613F05A00388EA6 /* Assets.xcassets */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		B1295D9E26154E6400A165A0 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				B1860FB52613F05600388EA6 /* AppDelegate.swift */,
+				B1860FB72613F05600388EA6 /* SceneDelegate.swift */,
+				B1295DA126154E9000A165A0 /* model */,
+				B1295DA026154E8B00A165A0 /* view */,
+				B1295D9F26154E8000A165A0 /* controller */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		B1295D9F26154E8000A165A0 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B1860FB92613F05600388EA6 /* ViewController.swift */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B1295DA026154E8B00A165A0 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B1860FBB2613F05600388EA6 /* Main.storyboard */,
+				B1860FC02613F05A00388EA6 /* LaunchScreen.storyboard */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B1295DA126154E9000A165A0 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		B1860FA92613F05600388EA6 = {
 			isa = PBXGroup;
 			children = (
@@ -56,12 +100,8 @@
 		B1860FB42613F05600388EA6 /* PomodoroApp */ = {
 			isa = PBXGroup;
 			children = (
-				B1860FB52613F05600388EA6 /* AppDelegate.swift */,
-				B1860FB72613F05600388EA6 /* SceneDelegate.swift */,
-				B1860FB92613F05600388EA6 /* ViewController.swift */,
-				B1860FBB2613F05600388EA6 /* Main.storyboard */,
-				B1860FBE2613F05A00388EA6 /* Assets.xcassets */,
-				B1860FC02613F05A00388EA6 /* LaunchScreen.storyboard */,
+				B1295D9D26154E5800A165A0 /* resources */,
+				B1295D9E26154E6400A165A0 /* src */,
 				B1860FC32613F05A00388EA6 /* Info.plist */,
 			);
 			path = PomodoroApp;
