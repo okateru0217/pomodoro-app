@@ -31,6 +31,9 @@
                                         <integer key="value" value="40"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="cancelTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NGN-Pc-qpR"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PCE-BH-pWp">
                                 <rect key="frame" x="338" y="787" width="50" height="50"/>
@@ -47,17 +50,42 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QF5-sH-jGg" customClass="MBCircularProgressBarView">
                                 <rect key="frame" x="0.0" y="74" width="414" height="383"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5S-yb-C7n">
-                                        <rect key="frame" x="129" y="156.5" width="156.5" height="72"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="d51-YV-9AC">
+                                        <rect key="frame" x="114.5" y="155.5" width="185.5" height="72"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8A-MW-zMz">
+                                                <rect key="frame" x="0.0" y="0.0" width="85" height="72"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="85" id="801-yA-XPZ"/>
+                                                    <constraint firstAttribute="height" constant="72" id="xXu-0o-Nsq"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUe-CZ-dqg">
+                                                <rect key="frame" x="86" y="0.0" width="13.5" height="72"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFy-V3-sC6">
+                                                <rect key="frame" x="100.5" y="0.0" width="85" height="72"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="85" id="BhN-Sz-JH0"/>
+                                                    <constraint firstAttribute="height" constant="72" id="f4a-tk-Aco"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.99607843137254903" green="0.38823529411764707" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="t5S-yb-C7n" firstAttribute="centerX" secondItem="QF5-sH-jGg" secondAttribute="centerX" id="60a-gS-UTe"/>
-                                    <constraint firstItem="t5S-yb-C7n" firstAttribute="centerY" secondItem="QF5-sH-jGg" secondAttribute="centerY" constant="1" id="CfJ-xb-vFO"/>
+                                    <constraint firstItem="d51-YV-9AC" firstAttribute="centerY" secondItem="QF5-sH-jGg" secondAttribute="centerY" id="4u0-oJ-wKI"/>
+                                    <constraint firstItem="d51-YV-9AC" firstAttribute="centerX" secondItem="QF5-sH-jGg" secondAttribute="centerX" id="Kp6-Xc-ZVi"/>
                                     <constraint firstAttribute="width" secondItem="QF5-sH-jGg" secondAttribute="height" multiplier="414:383" id="skv-Q5-LKW"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -102,6 +130,9 @@
                                         <integer key="value" value="40"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="operationTimer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zQ3-H4-snA"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pM0-Lg-rVb" userLabel="SpaceContentsView1">
                                 <rect key="frame" x="0.0" y="457" width="414" height="110"/>
@@ -202,11 +233,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="cancelButtonLabel" destination="Bhv-aj-Mba" id="RED-pS-fo4"/>
+                        <outlet property="cancelTimerButton" destination="Bhv-aj-Mba" id="BQ7-3L-3jh"/>
+                        <outlet property="minutesLabel" destination="N8A-MW-zMz" id="n6d-wc-hAn"/>
+                        <outlet property="operationTimerButton" destination="87j-UO-KH1" id="YRO-WB-nOM"/>
+                        <outlet property="secondsLabel" destination="AFy-V3-sC6" id="Znn-gY-vY5"/>
                         <outlet property="settingButton" destination="e5F-H6-93F" id="A0z-1v-sVk"/>
-                        <outlet property="startButtonLabel" destination="87j-UO-KH1" id="iuc-LX-zxO"/>
                         <outlet property="timerCircle" destination="QF5-sH-jGg" id="6lh-LJ-ruW"/>
-                        <outlet property="timerLabel" destination="t5S-yb-C7n" id="yOE-qq-EI3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
