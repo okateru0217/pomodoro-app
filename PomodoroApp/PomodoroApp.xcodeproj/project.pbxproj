@@ -15,6 +15,7 @@
 		B1860FBD2613F05600388EA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1860FBB2613F05600388EA6 /* Main.storyboard */; };
 		B1860FBF2613F05A00388EA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1860FBE2613F05A00388EA6 /* Assets.xcassets */; };
 		B1860FC22613F05A00388EA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1860FC02613F05A00388EA6 /* LaunchScreen.storyboard */; };
+		B1A8A88D261C25CB00BBCD71 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A8A88C261C25CB00BBCD71 /* TimerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		B1860FBE2613F05A00388EA6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1860FC12613F05A00388EA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1860FC32613F05A00388EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1A8A88C261C25CB00BBCD71 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		B86E25DCF4B6A770FE002099 /* Pods-PomodoroApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PomodoroApp.release.xcconfig"; path = "Target Support Files/Pods-PomodoroApp/Pods-PomodoroApp.release.xcconfig"; sourceTree = "<group>"; };
 		BCC02328198F5F4DE611C309 /* Pods-PomodoroApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PomodoroApp.debug.xcconfig"; path = "Target Support Files/Pods-PomodoroApp/Pods-PomodoroApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				B1295DAF2615797C00A165A0 /* UIColorHex.swift */,
+				B1A8A88C261C25CB00BBCD71 /* TimerModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			files = (
 				B1860FBA2613F05600388EA6 /* ViewController.swift in Sources */,
 				B1295DB02615797C00A165A0 /* UIColorHex.swift in Sources */,
+				B1A8A88D261C25CB00BBCD71 /* TimerModel.swift in Sources */,
 				B1860FB62613F05600388EA6 /* AppDelegate.swift in Sources */,
 				B1860FB82613F05600388EA6 /* SceneDelegate.swift in Sources */,
 			);
