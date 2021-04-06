@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7D424972C3FD35E13BEF047F /* Pods_PomodoroApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9EC3502EB79D4671FCD118 /* Pods_PomodoroApp.framework */; };
-		B10844A12616C4BF00DC40C3 /* TimerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10844A02616C4BF00DC40C3 /* TimerController.swift */; };
+		B10844A12616C4BF00DC40C3 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10844A02616C4BF00DC40C3 /* TimerModel.swift */; };
 		B1295DB02615797C00A165A0 /* UIColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1295DAF2615797C00A165A0 /* UIColorHex.swift */; };
 		B1860FB62613F05600388EA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1860FB52613F05600388EA6 /* AppDelegate.swift */; };
 		B1860FB82613F05600388EA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1860FB72613F05600388EA6 /* SceneDelegate.swift */; };
@@ -20,7 +20,7 @@
 
 /* Begin PBXFileReference section */
 		8C9EC3502EB79D4671FCD118 /* Pods_PomodoroApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PomodoroApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B10844A02616C4BF00DC40C3 /* TimerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerController.swift; sourceTree = "<group>"; };
+		B10844A02616C4BF00DC40C3 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		B1295DAF2615797C00A165A0 /* UIColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHex.swift; sourceTree = "<group>"; };
 		B1860FB22613F05600388EA6 /* PomodoroApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1860FB52613F05600388EA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				B1860FB92613F05600388EA6 /* ViewController.swift */,
-				B10844A02616C4BF00DC40C3 /* TimerController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -104,6 +103,7 @@
 		B1295DA126154E9000A165A0 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				B10844A02616C4BF00DC40C3 /* TimerModel.swift */,
 				B1295DAF2615797C00A165A0 /* UIColorHex.swift */,
 			);
 			path = model;
@@ -253,7 +253,7 @@
 			files = (
 				B1860FBA2613F05600388EA6 /* ViewController.swift in Sources */,
 				B1295DB02615797C00A165A0 /* UIColorHex.swift in Sources */,
-				B10844A12616C4BF00DC40C3 /* TimerController.swift in Sources */,
+				B10844A12616C4BF00DC40C3 /* TimerModel.swift in Sources */,
 				B1860FB62613F05600388EA6 /* AppDelegate.swift in Sources */,
 				B1860FB82613F05600388EA6 /* SceneDelegate.swift in Sources */,
 			);
