@@ -16,6 +16,8 @@ final class TimerModel {
     private (set) internal var seconds: Int = 0
     private (set) internal var limit = 1
     private (set) internal var restLimit = 1
+    private (set) internal var longRestLimit = 1
+    private (set) internal var whileLongRestLimit = 1
     internal var isPomodoroTime = true
     
     // タイマーセット

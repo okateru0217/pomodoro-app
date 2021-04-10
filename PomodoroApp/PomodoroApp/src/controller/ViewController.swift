@@ -28,6 +28,10 @@ final class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func transitionSetting(_ sender: Any) {
+        self.performSegue(withIdentifier: "toSetting", sender: nil)
+    }
+    
     enum OperationTimerButtonStatus: String {
         case start = "開始"
         case restart = "再開"

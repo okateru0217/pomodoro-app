@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -167,6 +168,9 @@
                                     <imageReference key="image" image="gearshape.fill" catalog="system" symbolScale="large"/>
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                 </state>
+                                <connections>
+                                    <action selector="transitionSetting:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VGM-6G-s4Y"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sUW-ni-nEK" userLabel="SpaceContentsView6">
                                 <rect key="frame" x="0.0" y="787" width="26" height="50"/>
@@ -239,15 +243,54 @@
                         <outlet property="secondsLabel" destination="AFy-V3-sC6" id="Znn-gY-vY5"/>
                         <outlet property="settingButton" destination="e5F-H6-93F" id="A0z-1v-sVk"/>
                         <outlet property="timerCircle" destination="QF5-sH-jGg" id="6lh-LJ-ruW"/>
+                        <segue destination="Zml-RZ-SCs" kind="show" identifier="toSetting" id="SVO-1y-ZeX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="34.782608695652179" y="93.75"/>
         </scene>
+        <!--設定-->
+        <scene sceneID="1U1-Ja-tfe">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="Fwf-z4-iN8" customClass="SettingViewController" customModule="PomodoroApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rKz-mH-EZH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="yAN-ep-hYu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="設定" id="e7x-1g-94y"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ov-Aw-JMq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2008.6956521739132" y="-135.26785714285714"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="bdc-6t-OKG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="Zml-RZ-SCs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="wPJ-xK-FBg"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="G43-kD-SVh">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Fwf-z4-iN8" kind="relationship" relationship="rootViewController" id="oq7-7z-WcI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ih7-qo-HU5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1098.5507246376812" y="-135.26785714285714"/>
+        </scene>
     </scenes>
     <resources>
         <image name="chart.bar.xaxis" catalog="system" width="128" height="98"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>
