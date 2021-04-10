@@ -21,6 +21,7 @@ final class ViewController: UIViewController {
     private var timer = Timer()
     private let pomodoroTimerColor = "FE6348"
     private let restTimerColor = "1BD1AE"
+    private let longRestTimerColor = "4C6CB3"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +45,9 @@ final class ViewController: UIViewController {
     }
     
     @IBAction func cancelTimer(_ sender: Any) {
+        if TimerModel.timerModel.isPomodoroTime {
+            TimerModel.timerModel.countPomodoroTimeReset()
+        }
         TimerModel.timerModel.isPomodoroTime = true
         timer.invalidate()
         setUpTimerLabel()
@@ -64,6 +68,14 @@ private extension ViewController {
             timerCircleAppearance(timerColor: pomodoroTimerColor)
             timerStartButtonAppearance(setStartTitle: "開始", timerColor: pomodoroTimerColor)
             timerCancelButtonAppearance(setCancelTitle: "キャンセル", timerColor: pomodoroTimerColor)
+        // 長い休憩タイマーの外観
+        } else if TimerModel.timerModel.whileLongRestLimit == TimerModel.timerModel.countPomodoroTime && !TimerModel.timerModel.isPomodoroTime {
+            TimerModel.timerModel.countPomodoroTimeReset()
+            timerScreenAppearance(timerColor: longRestTimerColor)
+            timerMinutesDisplay(setLimit: TimerModel.timerModel.longRestLimit)
+            timerCircleAppearance(timerColor: longRestTimerColor)
+            timerStartButtonAppearance(setStartTitle: "休憩する", timerColor: longRestTimerColor)
+            timerCancelButtonAppearance(setCancelTitle: "休憩終了", timerColor: longRestTimerColor)
         // 休憩タイマーの外観
         } else {
             timerScreenAppearance(timerColor: restTimerColor)

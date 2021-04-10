@@ -17,12 +17,19 @@ final class TimerModel {
     private (set) internal var limit = 1
     private (set) internal var restLimit = 1
     private (set) internal var longRestLimit = 1
-    private (set) internal var whileLongRestLimit = 1
+    private (set) internal var whileLongRestLimit = 2
+    private (set) internal var countPomodoroTime = 0
     internal var isPomodoroTime = true
     
     // タイマーセット
     func setUpTimer() {
-        minutes = isPomodoroTime ? limit : restLimit
+        if isPomodoroTime {
+            minutes = limit
+        } else if whileLongRestLimit == countPomodoroTime && !isPomodoroTime {
+            minutes = longRestLimit
+        } else {
+            minutes = restLimit
+        }
         seconds = 0
     }
     
@@ -36,7 +43,16 @@ final class TimerModel {
         }
         // タイマー終了時の処理
         if minutes == 0 && seconds == 0 {
+            // ポモドーロタイマー終了時、countPomodoroTimeを+1する
+            if isPomodoroTime {
+                countPomodoroTime += 1
+            }
             isPomodoroTime = !isPomodoroTime
         }
+    }
+    
+    // 長いタイマーカウントリセット
+    func countPomodoroTimeReset() {
+        countPomodoroTime = 0
     }
 }

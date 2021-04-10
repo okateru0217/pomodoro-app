@@ -17,8 +17,28 @@ class SettingViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarStopButton()
+        timerSection()
+        finishedTimerSection()
+        startTimerSection()
+    }
+    
+    @objc func backTimerScreen (_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true)
+    }
+
+    // ナビゲーションボタンの生成
+    func navigationBarStopButton() {
+        backTimerScreenButton = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(backTimerScreen(_:)))
+        self.navigationItem.leftBarButtonItems = [backTimerScreenButton]
+    }
+}
+
+// 設定項目
+extension SettingViewController {
+    // タイマーセクション
+    func timerSection() {
         form +++ Section("タイマー")
-        // ポモドーロタイムの時間
+        // ポモドーロの時間
         <<< PickerInlineRow<String>("pomodoroTime"){
         $0.title = "ポモドーロの時間"
         $0.options = []
@@ -30,7 +50,6 @@ class SettingViewController: FormViewController {
         .cellSetup({cell, row in
         self.tableView.separatorStyle = .none
         })
-            
         // 短い休憩の時間
         <<< PickerInlineRow<String>("restTime"){
         $0.title = "短い休憩の時間"
@@ -58,7 +77,10 @@ class SettingViewController: FormViewController {
             }
         $0.value = $0.options.first
         }
-        
+    }
+    
+    // タイマー終了時セクション
+    func finishedTimerSection() {
         form +++ Section("タイマー終了時")
         // ポモドーロ終了時
         <<< PushRow<String>("finishedPomodoroTimer") {
@@ -85,7 +107,10 @@ class SettingViewController: FormViewController {
             $0.title = "バイブレーション"
             $0.baseValue = true
         }
-        
+    }
+    
+    // タイマー開始時セクション
+    func startTimerSection() {
         form +++ Section("タイマースタート")
         <<< SwitchRow("automaticPomodoroTimer") {
             $0.title = "ポモドーロタイマーを自動的にスタート"
@@ -96,15 +121,5 @@ class SettingViewController: FormViewController {
         <<< SwitchRow("skipRestTimer") {
             $0.title = "休憩をスキップする"
         }
-    }
-    
-    @objc func backTimerScreen (_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true)
-    }
-
-    // ナビゲーションボタンの生成
-    func navigationBarStopButton() {
-        backTimerScreenButton = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(backTimerScreen(_:)))
-        self.navigationItem.leftBarButtonItems = [backTimerScreenButton]
     }
 }
