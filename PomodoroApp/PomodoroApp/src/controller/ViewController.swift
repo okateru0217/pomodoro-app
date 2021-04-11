@@ -174,9 +174,13 @@ extension ViewController {
         if TimerModel.timerModel.minutes == 0 && TimerModel.timerModel.seconds == 0 {
             switchCancelButtonEnabled()
             timer.invalidate()
+            if TimerModel.timerModel.skipRestTimer {
+                TimerModel.timerModel.revertPomodoroTimer()
+            }
             setUpTimerLabel()
             timerCircle.value = 0
             timerAppearance()
+            startTimerBehavior()
         }
         // 秒数が10未満の表示を2桁の0埋めにする
         let isSecondsMoreTen = TimerModel.timerModel.seconds < 10
@@ -212,4 +216,18 @@ extension ViewController {
         timerCircle.value = CGFloat(timerCircle.maxValue - CGFloat((TimerModel.timerModel.minutes * oneMinutesSeconds) + TimerModel.timerModel.seconds))
     }
     
+    // タイマースタートセクションのswitchに合わせて、タイマー開始時の操作を変更する
+    func startTimerBehavior() {
+        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
+        case .pomodoroTimer:
+            if TimerModel.timerModel.automaticallyPomodoroTimer {
+                operationTimer((Any).self)
+            }
+        case .restTimer, .longRestTimer:
+            if TimerModel.timerModel.automaticallyRestTimer {
+                operationTimer((Any).self)
+            }
+        default: break
+        }
+    }
 }

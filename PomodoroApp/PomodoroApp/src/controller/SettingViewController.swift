@@ -127,12 +127,30 @@ extension SettingViewController {
         form +++ Section("タイマースタート")
         <<< SwitchRow("automaticPomodoroTimer") {
             $0.title = "ポモドーロタイマーを自動的にスタート"
+            if TimerModel.timerModel.automaticallyPomodoroTimer {
+                $0.baseValue = true
+            }
         }
+        .onChange({ pick in
+            TimerModel.timerModel.changeTimerAutomatically(switchTag: pick.tag!)
+        })
         <<< SwitchRow("automaticRestTimer") {
             $0.title = "休憩時間を自動的にスタート"
+            if TimerModel.timerModel.automaticallyRestTimer {
+                $0.baseValue = true
+            }
         }
+        .onChange({ pick in
+            TimerModel.timerModel.changeTimerAutomatically(switchTag: pick.tag!)
+        })
         <<< SwitchRow("skipRestTimer") {
             $0.title = "休憩をスキップする"
+            if TimerModel.timerModel.skipRestTimer {
+                $0.baseValue = true
+            }
         }
+        .onChange({ pick in
+            TimerModel.timerModel.changeTimerAutomatically(switchTag: pick.tag!)
+        })
     }
 }
