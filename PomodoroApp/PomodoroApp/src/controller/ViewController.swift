@@ -26,7 +26,10 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         timerAppearance()
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        timerAppearance()
     }
     
     @IBAction func transitionSetting(_ sender: Any) {
@@ -45,15 +48,11 @@ final class ViewController: UIViewController {
     }
     
     @IBAction func cancelTimer(_ sender: Any) {
-        if TimerModel.timerModel.isPomodoroTime {
-            TimerModel.timerModel.countPomodoroTimeReset()
-        }
-        TimerModel.timerModel.isPomodoroTime = true
         timer.invalidate()
         setUpTimerLabel()
+        TimerModel.timerModel.revertPomodoroTimer()
         timerCircle.value = 0
         timerAppearance()
-        switchTimer()
         switchCancelButtonEnabled()
     }
 }
@@ -61,28 +60,26 @@ final class ViewController: UIViewController {
 // タイマーの見た目に関する処理
 private extension ViewController {
     func timerAppearance() {
-        // ポモドーロタイマーの画面の外観
-        if TimerModel.timerModel.isPomodoroTime {
+        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
+        case .pomodoroTimer:
             timerScreenAppearance(timerColor: pomodoroTimerColor)
             timerMinutesDisplay(setLimit: TimerModel.timerModel.limit)
             timerCircleAppearance(timerColor: pomodoroTimerColor)
             timerStartButtonAppearance(setStartTitle: "開始", timerColor: pomodoroTimerColor)
             timerCancelButtonAppearance(setCancelTitle: "キャンセル", timerColor: pomodoroTimerColor)
-        // 長い休憩タイマーの外観
-        } else if TimerModel.timerModel.whileLongRestLimit == TimerModel.timerModel.countPomodoroTime && !TimerModel.timerModel.isPomodoroTime {
-            TimerModel.timerModel.countPomodoroTimeReset()
-            timerScreenAppearance(timerColor: longRestTimerColor)
-            timerMinutesDisplay(setLimit: TimerModel.timerModel.longRestLimit)
-            timerCircleAppearance(timerColor: longRestTimerColor)
-            timerStartButtonAppearance(setStartTitle: "休憩する", timerColor: longRestTimerColor)
-            timerCancelButtonAppearance(setCancelTitle: "休憩終了", timerColor: longRestTimerColor)
-        // 休憩タイマーの外観
-        } else {
+        case .restTimer:
             timerScreenAppearance(timerColor: restTimerColor)
             timerMinutesDisplay(setLimit: TimerModel.timerModel.restLimit)
             timerCircleAppearance(timerColor: restTimerColor)
             timerStartButtonAppearance(setStartTitle: "休憩する", timerColor: restTimerColor)
             timerCancelButtonAppearance(setCancelTitle: "休憩終了", timerColor: restTimerColor)
+        case .longRestTimer:
+            timerScreenAppearance(timerColor: longRestTimerColor)
+            timerMinutesDisplay(setLimit: TimerModel.timerModel.longRestLimit)
+            timerCircleAppearance(timerColor: longRestTimerColor)
+            timerStartButtonAppearance(setStartTitle: "休憩する", timerColor: longRestTimerColor)
+            timerCancelButtonAppearance(setCancelTitle: "休憩終了", timerColor: longRestTimerColor)
+        default: break
         }
     }
     // 画面の外観
@@ -106,46 +103,48 @@ private extension ViewController {
     }
     // キャンセルボタンの外観
     func timerCancelButtonAppearance(setCancelTitle: String, timerColor: String) {
-        if TimerModel.timerModel.isPomodoroTime {
+        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
+        case .pomodoroTimer:
             cancelTimerButton.setTitle(setCancelTitle, for: .normal)
             cancelTimerButton.setTitleColor(UIColor(hex: timerColor, alpha: 0.75), for: .normal)
             cancelTimerButton.backgroundColor = UIColor(hex: "FFFFFF", alpha: 0.75)
             cancelTimerButton.isEnabled = false
-        } else {
+        case .restTimer, .longRestTimer:
             cancelTimerButton.setTitle(setCancelTitle, for: .normal)
             cancelTimerButton.setTitleColor(UIColor(hex: timerColor), for: .normal)
             cancelTimerButton.backgroundColor = UIColor(hex: "FFFFFF")
             cancelTimerButton.isEnabled = true
+        default: break
         }
     }
 }
 
 // ボタンの表示によって処理を変える
 extension ViewController {
-    // タイマー操作ボタンの表示によって処理を変える
     func switchOperationTimerButtonStatus() {
-        let operationStatus = OperationTimerButtonStatus(rawValue: operationTimerButton.currentTitle!)
-        switch operationStatus {
+        switch OperationTimerButtonStatus(rawValue: operationTimerButton.currentTitle!) {
         case .start, .rest:
-            setUpTimerLabel()
-            timer.invalidate()
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.updateTimer), userInfo: nil, repeats: true)
+            TimerModel.timerModel.setUpTimer()
+            minutesLabel.text = String(TimerModel.timerModel.minutes)
+            secondsLabel.text = String("0\(TimerModel.timerModel.seconds)")
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.updateDisplayTimer), userInfo: nil, repeats: true)
             operationTimerButton.setTitle("一時停止", for: .normal)
         case .restart:
             timer.invalidate()
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.updateTimer), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.updateDisplayTimer), userInfo: nil, repeats: true)
             operationTimerButton.setTitle("一時停止", for: .normal)
         case .suspend:
-            suspendSetUpTimer()
             timer.invalidate()
             operationTimerButton.setTitle("再開", for: .normal)
         default: break
         }
     }
+    
     // タイマー操作ボタンの表示によってキャンセルボタンの見た目を変更する
     func switchCancelButtonEnabled() {
         let operationStatus = OperationTimerButtonStatus(rawValue: operationTimerButton.currentTitle!)
-        if TimerModel.timerModel.isPomodoroTime {
+        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
+        case .pomodoroTimer:
             switch operationStatus {
             case .start:
                 cancelTimerButton.isEnabled = false
@@ -157,43 +156,27 @@ extension ViewController {
                 cancelTimerButton.backgroundColor = UIColor(hex: "FFFFFF")
             default: break
             }
-        } else {
+        case .restTimer:
             cancelTimerButton.isEnabled = true
             cancelTimerButton.setTitleColor(UIColor(hex: restTimerColor), for: .normal)
             cancelTimerButton.backgroundColor = UIColor(hex: "FFFFFF")
+        case .longRestTimer:
+            cancelTimerButton.isEnabled = true
+            cancelTimerButton.setTitleColor(UIColor(hex: longRestTimerColor), for: .normal)
+            cancelTimerButton.backgroundColor = UIColor(hex: "FFFFFF")
+        default: break
         }
     }
-}
-
-// タイマー表示関連
-extension ViewController {
-    // タイマーに分数, 秒数をセットする
-    func setUpTimerLabel() {
-        TimerModel.timerModel.setUpTimer()
-        minutesLabel.text = String(TimerModel.timerModel.minutes)
-        secondsLabel.text = String("0\(TimerModel.timerModel.seconds)")
-    }
-    // 一時停止時のタイムを秒数ラベルへ反映
-    func suspendSetUpTimer() {
-        let suspendMinutes = TimerModel.timerModel.minutes
-        let suspendSeconds = TimerModel.timerModel.seconds
-        let isSuspendSecondsMoreTen = suspendSeconds < 10
-        minutesLabel.text = String(suspendMinutes)
-        secondsLabel.text = isSuspendSecondsMoreTen ? String("0\(suspendSeconds)") : String(suspendSeconds)
-    }
     
-    // タイマーの時間に応じて、プログレスバーの表示を変更する
-    func progressTimerCircle() {
-        let oneMinutesSeconds = 60
-        timerCircle.maxValue = CGFloat(TimerModel.timerModel.limit * oneMinutesSeconds)
-        timerCircle.value = CGFloat(timerCircle.maxValue - CGFloat((TimerModel.timerModel.minutes * oneMinutesSeconds) + TimerModel.timerModel.seconds))
-    }
     // タイマーを動かす処理
-    @objc func updateTimer() {
+    @objc func updateDisplayTimer() {
         TimerModel.timerModel.updateTimer()
         if TimerModel.timerModel.minutes == 0 && TimerModel.timerModel.seconds == 0 {
             switchCancelButtonEnabled()
-            switchTimer()
+            timer.invalidate()
+            setUpTimerLabel()
+            timerCircle.value = 0
+            timerAppearance()
         }
         // 秒数が10未満の表示を2桁の0埋めにする
         let isSecondsMoreTen = TimerModel.timerModel.seconds < 10
@@ -201,11 +184,32 @@ extension ViewController {
         secondsLabel.text = isSecondsMoreTen ? String("0\(TimerModel.timerModel.seconds)") : String(TimerModel.timerModel.seconds)
         progressTimerCircle()
     }
-    // タイマーが0になった時に呼び出される処理
-    func switchTimer() {
-        timer.invalidate()
-        setUpTimerLabel()
-        timerCircle.value = 0
-        timerAppearance()
+    
+    // タイマーに分数, 秒数をセットする
+    func setUpTimerLabel() {
+        TimerModel.timerModel.setUpTimer()
+        minutesLabel.text = String(TimerModel.timerModel.minutes)
+        secondsLabel.text = String("0\(TimerModel.timerModel.seconds)")
     }
+    
+    // タイマーの時間に応じて、プログレスバーの表示を変更する
+    func progressTimerCircle() {
+        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
+        case .pomodoroTimer:
+            progressTimerCircleTurn(timerLimitStatus: TimerModel.timerModel.limit)
+        case .restTimer:
+            progressTimerCircleTurn(timerLimitStatus: TimerModel.timerModel.restLimit)
+        case .longRestTimer:
+            progressTimerCircleTurn(timerLimitStatus: TimerModel.timerModel.longRestLimit)
+        default: break
+        }
+    }
+    
+    // プログレスバーの動き
+    func progressTimerCircleTurn(timerLimitStatus: Int) {
+        let oneMinutesSeconds = 60
+        timerCircle.maxValue = CGFloat(timerLimitStatus * oneMinutesSeconds)
+        timerCircle.value = CGFloat(timerCircle.maxValue - CGFloat((TimerModel.timerModel.minutes * oneMinutesSeconds) + TimerModel.timerModel.seconds))
+    }
+    
 }

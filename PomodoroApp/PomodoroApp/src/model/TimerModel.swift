@@ -12,25 +12,33 @@ final class TimerModel {
     public static let timerModel = TimerModel()
     private init() {}
     
+    enum TimerStatus: Int {
+        case pomodoroTimer = 1
+        case restTimer = 0
+        case longRestTimer = 10
+    }
+    
     private (set) internal var minutes: Int = 0
     private (set) internal var seconds: Int = 0
     private (set) internal var limit = 1
     private (set) internal var restLimit = 1
-    private (set) internal var longRestLimit = 1
+    private (set) internal var longRestLimit = 2
     private (set) internal var whileLongRestLimit = 2
     private (set) internal var countPomodoroTime = 0
-    internal var isPomodoroTime = true
+    private (set) internal var timerStatusDiscriminant = 1
     
     // タイマーセット
-    func setUpTimer() {
-        if isPomodoroTime {
+    @objc func setUpTimer() {
+        switch TimerStatus(rawValue: timerStatusDiscriminant) {
+        case .pomodoroTimer:
             minutes = limit
-        } else if whileLongRestLimit == countPomodoroTime && !isPomodoroTime {
-            minutes = longRestLimit
-        } else {
+        case .restTimer:
             minutes = restLimit
+        case .longRestTimer:
+            minutes = longRestLimit
+        default: break
         }
-        seconds = 0
+    seconds = 0
     }
     
     // タイマーを動かす処理
@@ -43,16 +51,53 @@ final class TimerModel {
         }
         // タイマー終了時の処理
         if minutes == 0 && seconds == 0 {
-            // ポモドーロタイマー終了時、countPomodoroTimeを+1する
-            if isPomodoroTime {
+            switch TimerStatus(rawValue: timerStatusDiscriminant) {
+            case .pomodoroTimer:
                 countPomodoroTime += 1
+                // 短い休憩か長い休憩か判断する
+                let isLongRestLimit = whileLongRestLimit == countPomodoroTime
+                timerStatusDiscriminant = isLongRestLimit ? 10 : 0
+            case .restTimer:
+                timerStatusDiscriminant = 1
+            case .longRestTimer:
+                timerStatusDiscriminant = 1
+                countPomodoroTime = 0
+            default: break
             }
-            isPomodoroTime = !isPomodoroTime
         }
     }
     
-    // 長いタイマーカウントリセット
-    func countPomodoroTimeReset() {
-        countPomodoroTime = 0
+    // ポモドーロの時間を変更
+    func changeTimerLimit(time: String, timerType: String) {
+        var changeTime = time
+        if timerType == "pomodoroTime" {
+            if let removeQuantifier = changeTime.range(of: "分間") {
+                changeTime.removeSubrange(removeQuantifier)
+            }
+            limit = Int(changeTime)!
+        } else if timerType == "restTime" {
+            if let removeQuantifier = changeTime.range(of: "分間") {
+                changeTime.removeSubrange(removeQuantifier)
+            }
+            restLimit = Int(changeTime)!
+        } else if timerType == "longRestTime" {
+            if let removeQuantifier = changeTime.range(of: "分間") {
+                changeTime.removeSubrange(removeQuantifier)
+            }
+            longRestLimit = Int(changeTime)!
+        } else if timerType == "longRestTimeInterval" {
+            if let removeQuantifier = changeTime.range(of: "ポモドーロ") {
+                changeTime.removeSubrange(removeQuantifier)
+            }
+            whileLongRestLimit = Int(changeTime)!
+        }
+    }
+    
+    // キャンセルボタン押下した時に、ポモドーロタイマーに戻す
+    func revertPomodoroTimer() {
+        if timerStatusDiscriminant == 1 {
+            countPomodoroTime = 0
+        }
+        timerStatusDiscriminant = 1
     }
 }
