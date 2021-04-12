@@ -124,16 +124,19 @@ extension ViewController {
     func switchOperationTimerButtonStatus() {
         switch OperationTimerButtonStatus(rawValue: operationTimerButton.currentTitle!) {
         case .start, .rest:
+            SceneDelegate.sceneDelegate.judgeMovingTimer(timerStatus: operationTimerButton.currentTitle!)
             TimerModel.timerModel.setUpTimer()
             minutesLabel.text = String(TimerModel.timerModel.minutes)
             secondsLabel.text = String("0\(TimerModel.timerModel.seconds)")
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.updateDisplayTimer), userInfo: nil, repeats: true)
             operationTimerButton.setTitle("一時停止", for: .normal)
         case .restart:
+            SceneDelegate.sceneDelegate.judgeMovingTimer(timerStatus: operationTimerButton.currentTitle!)
             timer.invalidate()
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.updateDisplayTimer), userInfo: nil, repeats: true)
             operationTimerButton.setTitle("一時停止", for: .normal)
         case .suspend:
+            SceneDelegate.sceneDelegate.judgeMovingTimer(timerStatus: operationTimerButton.currentTitle!)
             timer.invalidate()
             operationTimerButton.setTitle("再開", for: .normal)
         default: break

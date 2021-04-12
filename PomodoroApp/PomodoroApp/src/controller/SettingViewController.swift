@@ -12,7 +12,7 @@ class SettingViewController: FormViewController {
     
     var backTimerScreenButton: UIBarButtonItem!
     
-    var alarmItem = ["アラーム1", "アラーム2", "アラーム3", "アラーム4", "アラーム5", "アラーム6", "アラーム7", "アラーム8", "アラーム9", "アラーム10"]
+    var alarmItem = ["なし", "チン音", "ベル音", "ガラス", "警告", "ホルン", "エレクトロニック", "機関車", "はしご", "ノアール", "シャーウッドの森", "つま先", "タイプライター"]
     private var appendCharacter: String?
 
     override func viewDidLoad() {
@@ -99,27 +99,36 @@ extension SettingViewController {
         <<< PushRow<String>("finishedPomodoroTimer") {
             $0.title = "ポモドーロ終了時"
             $0.options = alarmItem
-            $0.value = $0.options?.first
+            $0.value = AlarmSoundModel.alarmSoundModel.selectPomodoroTimerSound
             $0.presentationMode = PresentationMode.show(controllerProvider: ControllerProvider.callback{return SelectorViewController(){_ in}}, onDismiss: nil)
         }
         .onPresent { form, selectorController in
                  selectorController.enableDeselection = false
         }
+        .onChange({ alarm in
+            AlarmSoundModel.alarmSoundModel.setFinishedTimerSound(alarmSoundType: alarm.value!, timerType: "pomodoro")
+        })
         // 休憩終了時
         <<< PushRow<String>("finishedRestTimer") {
             $0.title = "休憩終了時"
             $0.options = alarmItem
-            $0.value = $0.options?.first
+            $0.value = AlarmSoundModel.alarmSoundModel.selectRestTimerSound
             $0.presentationMode = PresentationMode.show(controllerProvider: ControllerProvider.callback{return SelectorViewController(){_ in}}, onDismiss: nil)
         }
         .onPresent { form, selectorController in
                  selectorController.enableDeselection = false
         }
+        .onChange({ alarm in
+            AlarmSoundModel.alarmSoundModel.setFinishedTimerSound(alarmSoundType: alarm.value!, timerType: "rest")
+        })
         // バイブレーション
         <<< SwitchRow("vibration") {
             $0.title = "バイブレーション"
-            $0.baseValue = true
+            $0.baseValue = AlarmSoundModel.alarmSoundModel.isVibration ? true : false
         }
+        .onChange({ pick in
+            AlarmSoundModel.alarmSoundModel.useVibration()
+        })
     }
     
     // タイマー開始時セクション

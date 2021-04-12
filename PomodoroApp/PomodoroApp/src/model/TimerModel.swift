@@ -62,6 +62,7 @@ final class TimerModel {
         }
         // タイマー終了時の処理
         if minutes == 0 && seconds == 0 {
+            AlarmSoundModel.alarmSoundModel.soundAlarm()
             switch TimerStatus(rawValue: timerStatusDiscriminant) {
             case .pomodoroTimer:
                 if skipRestTimer { return }
