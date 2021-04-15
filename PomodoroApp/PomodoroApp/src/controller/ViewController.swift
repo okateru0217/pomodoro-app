@@ -25,11 +25,14 @@ final class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        TimerModel.timerModel.setTimerUserDefaults()
+        AlarmSoundModel.alarmSoundModel.setAlarmUserDefaults()
         timerAppearance()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         timerAppearance()
+        cancelTimer((Any).self)
     }
     
     @IBAction func transitionSetting(_ sender: Any) {
@@ -174,7 +177,8 @@ extension ViewController {
     // タイマーを動かす処理
     @objc func updateDisplayTimer() {
         TimerModel.timerModel.updateTimer()
-        if TimerModel.timerModel.minutes == 0 && TimerModel.timerModel.seconds == 0 {
+        if TimerModel.timerModel.minutes == 0 && TimerModel.timerModel.seconds == 0 || TimerModel.timerModel.minutes < 0 {
+            SceneDelegate.sceneDelegate.judgeMovingTimer(timerStatus: operationTimerButton.currentTitle!)
             switchCancelButtonEnabled()
             timer.invalidate()
             if TimerModel.timerModel.skipRestTimer {
@@ -183,7 +187,6 @@ extension ViewController {
             setUpTimerLabel()
             timerCircle.value = 0
             timerAppearance()
-            startTimerBehavior()
         }
         // 秒数が10未満の表示を2桁の0埋めにする
         let isSecondsMoreTen = TimerModel.timerModel.seconds < 10
@@ -217,20 +220,5 @@ extension ViewController {
         let oneMinutesSeconds = 60
         timerCircle.maxValue = CGFloat(timerLimitStatus * oneMinutesSeconds)
         timerCircle.value = CGFloat(timerCircle.maxValue - CGFloat((TimerModel.timerModel.minutes * oneMinutesSeconds) + TimerModel.timerModel.seconds))
-    }
-    
-    // タイマースタートセクションのswitchに合わせて、タイマー開始時の操作を変更する
-    func startTimerBehavior() {
-        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
-        case .pomodoroTimer:
-            if TimerModel.timerModel.automaticallyPomodoroTimer {
-                operationTimer((Any).self)
-            }
-        case .restTimer, .longRestTimer:
-            if TimerModel.timerModel.automaticallyRestTimer {
-                operationTimer((Any).self)
-            }
-        default: break
-        }
     }
 }

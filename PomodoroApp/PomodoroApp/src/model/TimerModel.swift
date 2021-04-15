@@ -22,21 +22,19 @@ final class TimerModel {
     private (set) internal var minutes: Int = 0
     private (set) internal var seconds: Int = 0
     // ポモドーロ, 短い休憩, 長い休憩時間のminutes
-    private (set) internal var limit = 1
-    private (set) internal var restLimit = 1
-    private (set) internal var longRestLimit = 2
+    private (set) internal var limit = 25
+    private (set) internal var restLimit = 5
+    private (set) internal var longRestLimit = 20
     // 長い休憩に入るまでに必要なポモドーロの回数
     // ポモドーロの回数を数えるカウント
     // タイマーの種類を判断するための変数
-    private (set) internal var whileLongRestLimit = 2
+    // 休憩をスキップする
+    private (set) internal var whileLongRestLimit = 3
     private (set) internal var countPomodoroTime = 0
     private (set) internal var timerStatusDiscriminant = 1
-    // ポモドーロタイマーを自動的にスタート
-    // 休憩時間を自動的にスタート
-    // 休憩をスキップする
-    private (set) internal var automaticallyPomodoroTimer = false
-    private (set) internal var automaticallyRestTimer = false
     private (set) internal var skipRestTimer = false
+    
+    let userDefaults = UserDefaults.standard
     
     // タイマーセット
     @objc func setUpTimer() {
@@ -78,6 +76,22 @@ final class TimerModel {
             default: break
             }
         }
+        else if minutes < 0 {
+            switch TimerStatus(rawValue: timerStatusDiscriminant) {
+            case .pomodoroTimer:
+                if skipRestTimer { return }
+                countPomodoroTime += 1
+                // 短い休憩か長い休憩か判断する
+                let isLongRestLimit = whileLongRestLimit == countPomodoroTime
+                timerStatusDiscriminant = isLongRestLimit ? 10 : 0
+            case .restTimer:
+                timerStatusDiscriminant = 1
+            case .longRestTimer:
+                timerStatusDiscriminant = 1
+                countPomodoroTime = 0
+            default: break
+            }
+        }
     }
     
     // キャンセルボタン押下した時に、ポモドーロタイマーに戻す
@@ -86,6 +100,42 @@ final class TimerModel {
             countPomodoroTime = 0
         }
         timerStatusDiscriminant = 1
+    }
+    
+    // バックグラウンドでもタイマーが動くようにする
+    func moveTimerBackground(backgroundTime: Int) {
+        var backgroundMinutes = 0
+        var backgroundSeconds = 0
+        let timeLag = 3
+        switch backgroundTime {
+        case 60...:
+            let divideInSixty = backgroundTime / 60
+            let sixtyMultiple = divideInSixty * 60
+            backgroundMinutes = backgroundTime / sixtyMultiple
+            backgroundSeconds = backgroundTime % sixtyMultiple
+            if backgroundSeconds > seconds {
+                minutes -= backgroundMinutes
+                let backgroundDiff = backgroundSeconds - seconds
+                seconds = 60 - backgroundDiff
+                minutes -= 1
+            } else {
+                minutes -= backgroundMinutes
+                if backgroundSeconds > timeLag {
+                    seconds -= backgroundSeconds - timeLag
+                }
+            }
+        default:
+            backgroundSeconds = backgroundTime
+            if backgroundSeconds > seconds {
+                minutes -= 1
+                let backgroundDiff = backgroundSeconds - seconds
+                seconds = 60 - backgroundDiff
+            } else {
+                if backgroundSeconds > timeLag {
+                    seconds -= backgroundSeconds - timeLag
+                }
+            }
+        }
     }
     
     // ポモドーロの時間を変更
@@ -99,10 +149,13 @@ final class TimerModel {
             switch timerType {
             case "pomodoroTime":
                 limit = Int(changeTime)!
+                self.userDefaults.set(limit, forKey: "limit")
             case "restTime":
                 restLimit = Int(changeTime)!
+                self.userDefaults.set(restLimit, forKey: "restLimit")
             case "longRestTime":
                 longRestLimit = Int(changeTime)!
+                self.userDefaults.set(longRestLimit, forKey: "longRestLimit")
             default: break
             }
         case "longRestTimeInterval":
@@ -110,20 +163,35 @@ final class TimerModel {
                 changeTime.removeSubrange(removeQuantifier)
             }
             whileLongRestLimit = Int(changeTime)!
+            self.userDefaults.set(whileLongRestLimit, forKey: "whileLongRestLimit")
         default: break
         }
     }
     
     // 設定のタイマースタートセクションの変更を感知する
-    func changeTimerAutomatically(switchTag: String) {
-        switch switchTag {
-        case "automaticPomodoroTimer":
-            automaticallyPomodoroTimer = !automaticallyPomodoroTimer
-        case "automaticRestTimer":
-            automaticallyRestTimer = !automaticallyRestTimer
-        case "skipRestTimer":
-            skipRestTimer = !skipRestTimer
-        default: break
+    func changeTimerAutomatically() {
+        skipRestTimer = !skipRestTimer
+        userDefaults.set(skipRestTimer, forKey: "skipRestTimer")
+    }
+    
+    // userDefaults呼び出し
+    func setTimerUserDefaults() {
+        limit = userDefaults.integer(forKey: "limit")
+        restLimit = userDefaults.integer(forKey: "restLimit")
+        longRestLimit = userDefaults.integer(forKey: "longRestLimit")
+        whileLongRestLimit = userDefaults.integer(forKey: "skipRestTimer")
+        skipRestTimer = userDefaults.bool(forKey: "skipRestTimer")
+        if limit == 0 {
+            limit = 25
+        }
+        if restLimit == 0 {
+            restLimit = 5
+        }
+        if longRestLimit == 0 {
+            longRestLimit = 20
+        }
+        if whileLongRestLimit == 0 {
+            whileLongRestLimit = 3
         }
     }
 }

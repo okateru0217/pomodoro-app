@@ -12,7 +12,7 @@ class SettingViewController: FormViewController {
     
     var backTimerScreenButton: UIBarButtonItem!
     
-    var alarmItem = ["なし", "チン音", "ベル音", "ガラス", "警告", "ホルン", "エレクトロニック", "機関車", "はしご", "ノアール", "シャーウッドの森", "つま先", "タイプライター"]
+    var alarmItem = ["なし", "ベル", "束の間の休息", "ほっとひといき", "エレガント", "タイトルコール", "ビリヤード", "肩の力をぬいて", "オルゴール", "おもちゃ", "朝", "夜", "会議所", "陽気なあさひ", "サンセットと黄昏", "学生", "水色の光", "草原", "百花繚乱"]
     private var appendCharacter: String?
 
     override func viewDidLoad() {
@@ -20,7 +20,6 @@ class SettingViewController: FormViewController {
         navigationBarStopButton()
         timerSection()
         finishedTimerSection()
-        startTimerSection()
     }
     
     @objc func backTimerScreen (_ sender: UIBarButtonItem) {
@@ -38,7 +37,7 @@ class SettingViewController: FormViewController {
 extension SettingViewController {
     // タイマーセクション
     func timerSection() {
-        form +++ Section("タイマー")
+        form +++ Section("時間設定")
         // ポモドーロの時間
         <<< PickerInlineRow<String>("pomodoroTime"){
         $0.title = "ポモドーロの時間"
@@ -129,29 +128,6 @@ extension SettingViewController {
         .onChange({ pick in
             AlarmSoundModel.alarmSoundModel.useVibration()
         })
-    }
-    
-    // タイマー開始時セクション
-    func startTimerSection() {
-        form +++ Section("タイマースタート")
-        <<< SwitchRow("automaticPomodoroTimer") {
-            $0.title = "ポモドーロタイマーを自動的にスタート"
-            if TimerModel.timerModel.automaticallyPomodoroTimer {
-                $0.baseValue = true
-            }
-        }
-        .onChange({ pick in
-            TimerModel.timerModel.changeTimerAutomatically(switchTag: pick.tag!)
-        })
-        <<< SwitchRow("automaticRestTimer") {
-            $0.title = "休憩時間を自動的にスタート"
-            if TimerModel.timerModel.automaticallyRestTimer {
-                $0.baseValue = true
-            }
-        }
-        .onChange({ pick in
-            TimerModel.timerModel.changeTimerAutomatically(switchTag: pick.tag!)
-        })
         <<< SwitchRow("skipRestTimer") {
             $0.title = "休憩をスキップする"
             if TimerModel.timerModel.skipRestTimer {
@@ -159,7 +135,7 @@ extension SettingViewController {
             }
         }
         .onChange({ pick in
-            TimerModel.timerModel.changeTimerAutomatically(switchTag: pick.tag!)
+            TimerModel.timerModel.changeTimerAutomatically()
         })
     }
 }

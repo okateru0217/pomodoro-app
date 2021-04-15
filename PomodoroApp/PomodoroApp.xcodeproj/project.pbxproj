@@ -10,6 +10,25 @@
 		7D424972C3FD35E13BEF047F /* Pods_PomodoroApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9EC3502EB79D4671FCD118 /* Pods_PomodoroApp.framework */; };
 		B10844A12616C4BF00DC40C3 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10844A02616C4BF00DC40C3 /* TimerModel.swift */; };
 		B1295DB02615797C00A165A0 /* UIColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1295DAF2615797C00A165A0 /* UIColorHex.swift */; };
+		B1758F51262696DC0030CB70 /* 陽気なあさひ.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F3F262696DC0030CB70 /* 陽気なあさひ.mp3 */; };
+		B1758F52262696DC0030CB70 /* 束の間の休息.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F40262696DC0030CB70 /* 束の間の休息.mp3 */; };
+		B1758F53262696DC0030CB70 /* 会議所.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F41262696DC0030CB70 /* 会議所.mp3 */; };
+		B1758F54262696DC0030CB70 /* 水色の光.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F42262696DC0030CB70 /* 水色の光.mp3 */; };
+		B1758F55262696DC0030CB70 /* エレガント.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F43262696DC0030CB70 /* エレガント.mp3 */; };
+		B1758F56262696DC0030CB70 /* ベル.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F44262696DC0030CB70 /* ベル.mp3 */; };
+		B1758F57262696DC0030CB70 /* 朝.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F45262696DC0030CB70 /* 朝.mp3 */; };
+		B1758F58262696DC0030CB70 /* タイトルコール.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F46262696DC0030CB70 /* タイトルコール.mp3 */; };
+		B1758F59262696DC0030CB70 /* 夜.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F47262696DC0030CB70 /* 夜.mp3 */; };
+		B1758F5A262696DC0030CB70 /* オルゴール.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F48262696DC0030CB70 /* オルゴール.mp3 */; };
+		B1758F5B262696DC0030CB70 /* 何気ないジングル.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F49262696DC0030CB70 /* 何気ないジングル.mp3 */; };
+		B1758F5C262696DC0030CB70 /* サンセットと黄昏.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F4A262696DC0030CB70 /* サンセットと黄昏.mp3 */; };
+		B1758F5D262696DC0030CB70 /* 学生.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F4B262696DC0030CB70 /* 学生.mp3 */; };
+		B1758F5E262696DC0030CB70 /* 草原.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F4C262696DC0030CB70 /* 草原.mp3 */; };
+		B1758F5F262696DC0030CB70 /* ほっとひといき.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F4D262696DC0030CB70 /* ほっとひといき.mp3 */; };
+		B1758F60262696DC0030CB70 /* 肩の力をぬいて.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F4E262696DC0030CB70 /* 肩の力をぬいて.mp3 */; };
+		B1758F61262696DC0030CB70 /* ビリヤード.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F4F262696DC0030CB70 /* ビリヤード.mp3 */; };
+		B1758F62262696DC0030CB70 /* おもちゃ.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F50262696DC0030CB70 /* おもちゃ.mp3 */; };
+		B1758F6926269A010030CB70 /* 百花繚乱.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F6826269A010030CB70 /* 百花繚乱.mp3 */; };
 		B1860FB62613F05600388EA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1860FB52613F05600388EA6 /* AppDelegate.swift */; };
 		B1860FB82613F05600388EA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1860FB72613F05600388EA6 /* SceneDelegate.swift */; };
 		B1860FBA2613F05600388EA6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1860FB92613F05600388EA6 /* ViewController.swift */; };
@@ -25,6 +44,25 @@
 		8C9EC3502EB79D4671FCD118 /* Pods_PomodoroApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PomodoroApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B10844A02616C4BF00DC40C3 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		B1295DAF2615797C00A165A0 /* UIColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHex.swift; sourceTree = "<group>"; };
+		B1758F3F262696DC0030CB70 /* 陽気なあさひ.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "陽気なあさひ.mp3"; sourceTree = "<group>"; };
+		B1758F40262696DC0030CB70 /* 束の間の休息.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "束の間の休息.mp3"; sourceTree = "<group>"; };
+		B1758F41262696DC0030CB70 /* 会議所.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "会議所.mp3"; sourceTree = "<group>"; };
+		B1758F42262696DC0030CB70 /* 水色の光.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "水色の光.mp3"; sourceTree = "<group>"; };
+		B1758F43262696DC0030CB70 /* エレガント.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "エレガント.mp3"; sourceTree = "<group>"; };
+		B1758F44262696DC0030CB70 /* ベル.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ベル.mp3"; sourceTree = "<group>"; };
+		B1758F45262696DC0030CB70 /* 朝.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "朝.mp3"; sourceTree = "<group>"; };
+		B1758F46262696DC0030CB70 /* タイトルコール.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "タイトルコール.mp3"; sourceTree = "<group>"; };
+		B1758F47262696DC0030CB70 /* 夜.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "夜.mp3"; sourceTree = "<group>"; };
+		B1758F48262696DC0030CB70 /* オルゴール.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "オルゴール.mp3"; sourceTree = "<group>"; };
+		B1758F49262696DC0030CB70 /* 何気ないジングル.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "何気ないジングル.mp3"; sourceTree = "<group>"; };
+		B1758F4A262696DC0030CB70 /* サンセットと黄昏.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "サンセットと黄昏.mp3"; sourceTree = "<group>"; };
+		B1758F4B262696DC0030CB70 /* 学生.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "学生.mp3"; sourceTree = "<group>"; };
+		B1758F4C262696DC0030CB70 /* 草原.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "草原.mp3"; sourceTree = "<group>"; };
+		B1758F4D262696DC0030CB70 /* ほっとひといき.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ほっとひといき.mp3"; sourceTree = "<group>"; };
+		B1758F4E262696DC0030CB70 /* 肩の力をぬいて.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "肩の力をぬいて.mp3"; sourceTree = "<group>"; };
+		B1758F4F262696DC0030CB70 /* ビリヤード.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "ビリヤード.mp3"; sourceTree = "<group>"; };
+		B1758F50262696DC0030CB70 /* おもちゃ.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "おもちゃ.mp3"; sourceTree = "<group>"; };
+		B1758F6826269A010030CB70 /* 百花繚乱.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "百花繚乱.mp3"; sourceTree = "<group>"; };
 		B1860FB22613F05600388EA6 /* PomodoroApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1860FB52613F05600388EA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1860FB72613F05600388EA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +112,7 @@
 		B1295D9D26154E5800A165A0 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				B1758F3E262696DC0030CB70 /* sound */,
 				B1860FBE2613F05A00388EA6 /* Assets.xcassets */,
 			);
 			path = resources;
@@ -117,6 +156,33 @@
 				B1CB1ED32623015900CE7F7A /* AlarmSoundModel.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		B1758F3E262696DC0030CB70 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				B1758F3F262696DC0030CB70 /* 陽気なあさひ.mp3 */,
+				B1758F40262696DC0030CB70 /* 束の間の休息.mp3 */,
+				B1758F41262696DC0030CB70 /* 会議所.mp3 */,
+				B1758F42262696DC0030CB70 /* 水色の光.mp3 */,
+				B1758F43262696DC0030CB70 /* エレガント.mp3 */,
+				B1758F44262696DC0030CB70 /* ベル.mp3 */,
+				B1758F45262696DC0030CB70 /* 朝.mp3 */,
+				B1758F46262696DC0030CB70 /* タイトルコール.mp3 */,
+				B1758F47262696DC0030CB70 /* 夜.mp3 */,
+				B1758F6826269A010030CB70 /* 百花繚乱.mp3 */,
+				B1758F48262696DC0030CB70 /* オルゴール.mp3 */,
+				B1758F49262696DC0030CB70 /* 何気ないジングル.mp3 */,
+				B1758F4A262696DC0030CB70 /* サンセットと黄昏.mp3 */,
+				B1758F4B262696DC0030CB70 /* 学生.mp3 */,
+				B1758F4C262696DC0030CB70 /* 草原.mp3 */,
+				B1758F4D262696DC0030CB70 /* ほっとひといき.mp3 */,
+				B1758F4E262696DC0030CB70 /* 肩の力をぬいて.mp3 */,
+				B1758F4F262696DC0030CB70 /* ビリヤード.mp3 */,
+				B1758F50262696DC0030CB70 /* おもちゃ.mp3 */,
+			);
+			name = sound;
+			path = ../../../../sound;
 			sourceTree = "<group>";
 		};
 		B1860FA92613F05600388EA6 = {
@@ -206,9 +272,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1758F6926269A010030CB70 /* 百花繚乱.mp3 in Resources */,
+				B1758F52262696DC0030CB70 /* 束の間の休息.mp3 in Resources */,
+				B1758F62262696DC0030CB70 /* おもちゃ.mp3 in Resources */,
+				B1758F60262696DC0030CB70 /* 肩の力をぬいて.mp3 in Resources */,
 				B1860FC22613F05A00388EA6 /* LaunchScreen.storyboard in Resources */,
 				B1860FBF2613F05A00388EA6 /* Assets.xcassets in Resources */,
+				B1758F5E262696DC0030CB70 /* 草原.mp3 in Resources */,
+				B1758F5F262696DC0030CB70 /* ほっとひといき.mp3 in Resources */,
+				B1758F59262696DC0030CB70 /* 夜.mp3 in Resources */,
+				B1758F5B262696DC0030CB70 /* 何気ないジングル.mp3 in Resources */,
+				B1758F56262696DC0030CB70 /* ベル.mp3 in Resources */,
+				B1758F57262696DC0030CB70 /* 朝.mp3 in Resources */,
+				B1758F55262696DC0030CB70 /* エレガント.mp3 in Resources */,
+				B1758F61262696DC0030CB70 /* ビリヤード.mp3 in Resources */,
+				B1758F5A262696DC0030CB70 /* オルゴール.mp3 in Resources */,
+				B1758F5D262696DC0030CB70 /* 学生.mp3 in Resources */,
+				B1758F53262696DC0030CB70 /* 会議所.mp3 in Resources */,
+				B1758F5C262696DC0030CB70 /* サンセットと黄昏.mp3 in Resources */,
 				B1860FBD2613F05600388EA6 /* Main.storyboard in Resources */,
+				B1758F58262696DC0030CB70 /* タイトルコール.mp3 in Resources */,
+				B1758F51262696DC0030CB70 /* 陽気なあさひ.mp3 in Resources */,
+				B1758F54262696DC0030CB70 /* 水色の光.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
