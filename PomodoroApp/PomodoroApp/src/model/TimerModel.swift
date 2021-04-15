@@ -75,8 +75,8 @@ final class TimerModel {
                 countPomodoroTime = 0
             default: break
             }
-        }
-        else if minutes < 0 {
+        // バックグラウンドでタイマーが0:00になった時の処理
+        } else if minutes < 0 {
             switch TimerStatus(rawValue: timerStatusDiscriminant) {
             case .pomodoroTimer:
                 if skipRestTimer { return }
@@ -181,6 +181,7 @@ final class TimerModel {
         longRestLimit = userDefaults.integer(forKey: "longRestLimit")
         whileLongRestLimit = userDefaults.integer(forKey: "skipRestTimer")
         skipRestTimer = userDefaults.bool(forKey: "skipRestTimer")
+        // 初回起動時の値
         if limit == 0 {
             limit = 25
         }

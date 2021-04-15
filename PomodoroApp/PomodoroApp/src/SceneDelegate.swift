@@ -13,13 +13,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
     public static let sceneDelegate = SceneDelegate()
     
     var window: UIWindow?
+    // カレンダーインスタンス化
     private let calender = Calendar(identifier: .gregorian)
+    // バックグラウンド移行時の日付
+    // フォアグラウンド移行時の日付
     private var timeBackground: Date = Date()
     private var timeForeground: Date = Date()
+    // タイマーが動いているかどうか
+    // ローカル通知を許可したかどうか
     private (set) internal var isMovingTimer = false
     private var isAllowedLocalNotification = false
     
-    let userDefaults = UserDefaults.standard
+    private let userDefaults = UserDefaults.standard
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -71,6 +76,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
 }
 
 extension SceneDelegate {
+    // タイマーが動いているかどうかを判別する
     func judgeMovingTimer(timerStatus: String) {
         switch timerStatus {
         case "開始", "休憩する", "再開":
@@ -98,7 +104,7 @@ extension SceneDelegate {
             UIApplication.shared.registerUserNotificationSettings(settings)
         }
     }
-    // 通知の設定
+    // ローカル通知の設定
     func notificationType() {
         let soundAlarmInterval = TimerModel.timerModel.minutes * 60 + TimerModel.timerModel.seconds
         

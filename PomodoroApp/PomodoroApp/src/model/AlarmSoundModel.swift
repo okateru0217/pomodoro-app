@@ -11,15 +11,19 @@ import AudioToolbox
 final class AlarmSoundModel {
     public static let alarmSoundModel = AlarmSoundModel()
     
+    // ポモドーロタイマー終了時のアラーム音
+    // 休憩終了時のアラーム音
     private (set) internal var selectPomodoroTimerSound = "ベル"
     private (set) internal var selectRestTimerSound = "ベル"
-    private var soundIdRing:SystemSoundID = 0
+    private var soundIdRing: SystemSoundID = 0
+    // バイブレーションさせるか
     private (set) internal var isVibration = true
     
-    let userDefaults = UserDefaults.standard
+    private let userDefaults = UserDefaults.standard
     
     // 設定画面でアラーム音選択時、音を鳴らす
     func setFinishedTimerSound(alarmSoundType: String, timerType: String) {
+        // アラームで「なし」を選択していた場合、音を鳴らさない
         if alarmSoundType != "なし" {
             if let soundUrl:NSURL = NSURL(fileURLWithPath:
                     Bundle.main.path(forResource: alarmSoundType, ofType:"mp3")!) as NSURL?{
@@ -27,6 +31,7 @@ final class AlarmSoundModel {
                 AudioServicesPlaySystemSound(soundIdRing)
             }
         }
+        // 選択したアラームを保存
         if timerType == "pomodoro" {
             selectPomodoroTimerSound = alarmSoundType
             self.userDefaults.set(self.selectPomodoroTimerSound, forKey: "selectPomodoroTimerSound")

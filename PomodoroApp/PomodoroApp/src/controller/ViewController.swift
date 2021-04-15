@@ -173,7 +173,10 @@ extension ViewController {
         default: break
         }
     }
+}
     
+// タイマー動作関連
+extension ViewController {
     // タイマーを動かす処理
     @objc func updateDisplayTimer() {
         TimerModel.timerModel.updateTimer()
@@ -202,7 +205,7 @@ extension ViewController {
         secondsLabel.text = String("0\(TimerModel.timerModel.seconds)")
     }
     
-    // タイマーの時間に応じて、プログレスバーの表示を変更する
+    // タイマーの種類に応じて、プログレスバーの表示を変更する
     func progressTimerCircle() {
         switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
         case .pomodoroTimer:

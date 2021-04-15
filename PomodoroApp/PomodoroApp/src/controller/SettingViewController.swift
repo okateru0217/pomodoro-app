@@ -12,7 +12,8 @@ class SettingViewController: FormViewController {
     
     var backTimerScreenButton: UIBarButtonItem!
     
-    var alarmItem = ["なし", "ベル", "束の間の休息", "ほっとひといき", "エレガント", "タイトルコール", "ビリヤード", "肩の力をぬいて", "オルゴール", "おもちゃ", "朝", "夜", "会議所", "陽気なあさひ", "サンセットと黄昏", "学生", "水色の光", "草原", "百花繚乱"]
+    // アラームの種類
+    private (set) internal var alarmItem = ["なし", "ベル", "束の間の休息", "ほっとひといき", "エレガント", "タイトルコール", "ビリヤード", "肩の力をぬいて", "オルゴール", "おもちゃ", "朝", "夜", "会議所", "陽気なあさひ", "サンセットと黄昏", "学生", "水色の光", "草原", "百花繚乱"]
     private var appendCharacter: String?
 
     override func viewDidLoad() {
