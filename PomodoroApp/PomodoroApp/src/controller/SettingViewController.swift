@@ -38,12 +38,14 @@ class SettingViewController: FormViewController {
 extension SettingViewController {
     // タイマーセクション
     func timerSection() {
+        let pickerUpperLimit = 300
+        let whileLongRestPickerUpperLimit = 50
         form +++ Section("時間設定")
         // ポモドーロの時間
         <<< PickerInlineRow<String>("pomodoroTime"){
         $0.title = "ポモドーロの時間"
         $0.options = []
-            for i in 1...300 {
+            for i in 1...pickerUpperLimit {
                 $0.options.append("\(i)分間")
             }
         $0.value = "\(String(TimerModel.timerModel.limit))分間"
@@ -58,7 +60,7 @@ extension SettingViewController {
         <<< PickerInlineRow<String>("restTime"){
         $0.title = "短い休憩の時間"
         $0.options = []
-            for i in 1...300 {
+            for i in 1...pickerUpperLimit {
                 $0.options.append("\(i)分間")
             }
         $0.value = "\(String(TimerModel.timerModel.restLimit))分間"
@@ -70,7 +72,7 @@ extension SettingViewController {
         <<< PickerInlineRow<String>("longRestTime"){
         $0.title = "長い休憩の時間"
         $0.options = []
-            for i in 1...300 {
+            for i in 1...pickerUpperLimit {
                 $0.options.append("\(i)分間")
             }
         $0.value = "\(String(TimerModel.timerModel.longRestLimit))分間"
@@ -82,7 +84,7 @@ extension SettingViewController {
         <<< PickerInlineRow<String>("longRestTimeInterval"){
         $0.title = "長い休憩の間隔"
         $0.options = []
-            for i in 1...100 {
+            for i in 1...whileLongRestPickerUpperLimit {
                 $0.options.append("\(i)ポモドーロ")
             }
         $0.value = "\(String(TimerModel.timerModel.whileLongRestLimit))ポモドーロ"

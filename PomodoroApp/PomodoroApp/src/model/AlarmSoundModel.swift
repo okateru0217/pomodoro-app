@@ -23,10 +23,15 @@ final class AlarmSoundModel {
     
     // 設定画面でアラーム音選択時、音を鳴らす
     func setFinishedTimerSound(alarmSoundType: String, timerType: String) {
+        enum AlarmSoundType: String {
+            case noneAlarm = "なし"
+        }
         // アラームで「なし」を選択していた場合、音を鳴らさない
-        if alarmSoundType != "なし" {
+        switch AlarmSoundType(rawValue: alarmSoundType) {
+        case .noneAlarm: break
+        default:
             if let soundUrl:NSURL = NSURL(fileURLWithPath:
-                    Bundle.main.path(forResource: alarmSoundType, ofType:"mp3")!) as NSURL?{
+                    Bundle.main.path(forResource: alarmSoundType, ofType:"mp3")!) as NSURL? {
                 AudioServicesCreateSystemSoundID(soundUrl, &soundIdRing)
                 AudioServicesPlaySystemSound(soundIdRing)
             }

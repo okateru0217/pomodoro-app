@@ -99,11 +99,7 @@ extension SceneDelegate {
         center.delegate = self
         if #available(iOS 10.0, *) {
             center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
-                if granted {
-                    self.isAllowedLocalNotification = true
-                } else {
-                    self.isAllowedLocalNotification = false
-                }
+                self.isAllowedLocalNotification = granted
             }
         } else {
             let settings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -112,28 +108,28 @@ extension SceneDelegate {
     }
     // ローカル通知の設定
     func notificationType() {
-        let soundAlarmInterval = TimerModel.timerModel.minutes * 60 + TimerModel.timerModel.seconds
-        
         // 通知の設定
         let content: UNMutableNotificationContent = UNMutableNotificationContent()
-        if isMovingTimer {
-            switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
-            case .pomodoroTimer:
-                content.title = "ポモドーロが終了しました！"
-                content.sound = UNNotificationSound(named: UNNotificationSoundName("\(AlarmSoundModel.alarmSoundModel.selectPomodoroTimerSound).mp3"))
-            case .restTimer:
-                content.title = "休憩が終了しました！"
-                content.sound = UNNotificationSound(named: UNNotificationSoundName("\(AlarmSoundModel.alarmSoundModel.selectRestTimerSound).mp3"))
-            case .longRestTimer:
-                content.title = "長い休憩が終了しました！"
-                content.sound = UNNotificationSound(named: UNNotificationSoundName("\(AlarmSoundModel.alarmSoundModel.selectRestTimerSound).mp3"))
-            default: break
-            }
-            // 通知する時間
-            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(soundAlarmInterval), repeats: false)
-            
-            let request: UNNotificationRequest = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-            UNUserNotificationCenter.current().add(request)
+        guard isMovingTimer else {
+            return
         }
+        let soundAlarmInterval = TimerModel.timerModel.minutes * 60 + TimerModel.timerModel.seconds
+        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
+        case .pomodoroTimer:
+            content.title = "ポモドーロが終了しました！"
+            content.sound = UNNotificationSound(named: UNNotificationSoundName("\(AlarmSoundModel.alarmSoundModel.selectPomodoroTimerSound).mp3"))
+        case .restTimer:
+            content.title = "休憩が終了しました！"
+            content.sound = UNNotificationSound(named: UNNotificationSoundName("\(AlarmSoundModel.alarmSoundModel.selectRestTimerSound).mp3"))
+        case .longRestTimer:
+            content.title = "長い休憩が終了しました！"
+            content.sound = UNNotificationSound(named: UNNotificationSoundName("\(AlarmSoundModel.alarmSoundModel.selectRestTimerSound).mp3"))
+        default: break
+        }
+        // 通知する時間
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(soundAlarmInterval), repeats: false)
+        
+        let request: UNNotificationRequest = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
     }
 }
