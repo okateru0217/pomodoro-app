@@ -1,16 +1,20 @@
 PODS:
+  - Eureka (5.3.3)
   - MBCircularProgressBar (0.3.5)
 
 DEPENDENCIES:
+  - Eureka
   - MBCircularProgressBar
 
 SPEC REPOS:
   trunk:
+    - Eureka
     - MBCircularProgressBar
 
 SPEC CHECKSUMS:
+  Eureka: e6d720290c56bb23333ad1a0e020b2a98a0e9a43
   MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
 
-PODFILE CHECKSUM: ab7b8fdf80066dc1f027398745bec9bf5247f488
+PODFILE CHECKSUM: 208906eb5eaa06ce07fcdb6c76f19fd26ccffa3c
 
 COCOAPODS: 1.10.1
