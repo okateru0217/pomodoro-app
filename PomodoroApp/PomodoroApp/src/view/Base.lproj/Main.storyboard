@@ -52,12 +52,12 @@
                                 <rect key="frame" x="0.0" y="74" width="414" height="383"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="d51-YV-9AC">
-                                        <rect key="frame" x="114.5" y="155.5" width="185.5" height="72"/>
+                                        <rect key="frame" x="89.5" y="155.5" width="235.5" height="72"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N8A-MW-zMz">
-                                                <rect key="frame" x="0.0" y="0.0" width="85" height="72"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="110" height="72"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="85" id="801-yA-XPZ"/>
+                                                    <constraint firstAttribute="width" constant="110" id="801-yA-XPZ"/>
                                                     <constraint firstAttribute="height" constant="72" id="xXu-0o-Nsq"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
@@ -65,15 +65,15 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUe-CZ-dqg">
-                                                <rect key="frame" x="86" y="0.0" width="13.5" height="72"/>
+                                                <rect key="frame" x="111" y="0.0" width="13.5" height="72"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFy-V3-sC6">
-                                                <rect key="frame" x="100.5" y="0.0" width="85" height="72"/>
+                                                <rect key="frame" x="125.5" y="0.0" width="110" height="72"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="85" id="BhN-Sz-JH0"/>
+                                                    <constraint firstAttribute="width" constant="110" id="BhN-Sz-JH0"/>
                                                     <constraint firstAttribute="height" constant="72" id="f4a-tk-Aco"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>

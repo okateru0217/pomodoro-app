@@ -28,6 +28,7 @@ final class ViewController: UIViewController {
         TimerModel.timerModel.setTimerUserDefaults()
         AlarmSoundModel.alarmSoundModel.setAlarmUserDefaults()
         timerAppearance()
+        SceneDelegate.sceneDelegate.setUpMovingTimer()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,6 +58,7 @@ final class ViewController: UIViewController {
         timerCircle.value = 0
         timerAppearance()
         switchCancelButtonEnabled()
+        SceneDelegate.sceneDelegate.setUpMovingTimer()
     }
 }
 

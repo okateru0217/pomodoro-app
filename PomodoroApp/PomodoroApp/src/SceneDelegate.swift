@@ -85,8 +85,14 @@ extension SceneDelegate {
             isMovingTimer = false
         default: break
         }
-        self.userDefaults.set(self.isMovingTimer, forKey: "isMovingTimer")
+        userDefaults.set(isMovingTimer, forKey: "isMovingTimer")
     }
+    
+    func setUpMovingTimer() {
+        isMovingTimer = false
+        userDefaults.set(isMovingTimer, forKey: "isMovingTimer")
+    }
+    
     // ローカル通知を許可するかのアラートを出す
     func localNotification() {
         let center = UNUserNotificationCenter.current()

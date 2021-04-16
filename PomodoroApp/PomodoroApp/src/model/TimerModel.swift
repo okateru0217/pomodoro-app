@@ -96,7 +96,7 @@ final class TimerModel {
     
     // キャンセルボタン押下した時に、ポモドーロタイマーに戻す
     func revertPomodoroTimer() {
-        if timerStatusDiscriminant == 1 {
+        if timerStatusDiscriminant != 0 {
             countPomodoroTime = 0
         }
         timerStatusDiscriminant = 1
@@ -179,7 +179,7 @@ final class TimerModel {
         limit = userDefaults.integer(forKey: "limit")
         restLimit = userDefaults.integer(forKey: "restLimit")
         longRestLimit = userDefaults.integer(forKey: "longRestLimit")
-        whileLongRestLimit = userDefaults.integer(forKey: "skipRestTimer")
+        whileLongRestLimit = userDefaults.integer(forKey: "whileLongRestLimit")
         skipRestTimer = userDefaults.bool(forKey: "skipRestTimer")
         // 初回起動時の値
         if limit == 0 {
