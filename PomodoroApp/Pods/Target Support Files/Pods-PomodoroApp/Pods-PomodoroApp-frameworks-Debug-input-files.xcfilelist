@@ -1,3 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-PomodoroApp/Pods-PomodoroApp-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
 ${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework
 ${BUILT_PRODUCTS_DIR}/MBCircularProgressBar/MBCircularProgressBar.framework
