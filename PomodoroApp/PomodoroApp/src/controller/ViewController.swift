@@ -40,6 +40,11 @@ final class ViewController: UIViewController {
         self.performSegue(withIdentifier: "toSetting", sender: nil)
     }
     
+    @IBAction func transitionRecord(_ sender: Any) {
+        self.performSegue(withIdentifier: "toRecord", sender: nil)
+    }
+    
+    
     enum OperationTimerButtonStatus: String {
         case start = "開始"
         case restart = "再開"

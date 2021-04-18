@@ -10,6 +10,10 @@
 		7D424972C3FD35E13BEF047F /* Pods_PomodoroApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9EC3502EB79D4671FCD118 /* Pods_PomodoroApp.framework */; };
 		B10844A12616C4BF00DC40C3 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10844A02616C4BF00DC40C3 /* TimerModel.swift */; };
 		B1295DB02615797C00A165A0 /* UIColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1295DAF2615797C00A165A0 /* UIColorHex.swift */; };
+		B15A0476262AE6EB0024DD26 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15A0475262AE6EB0024DD26 /* RecordViewController.swift */; };
+		B15A0479262AFAAB0024DD26 /* DetailRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15A0478262AFAAB0024DD26 /* DetailRecordViewController.swift */; };
+		B15A0485262AFDE90024DD26 /* DetailRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15A0483262AFDE90024DD26 /* DetailRecordTableViewCell.swift */; };
+		B15A0486262AFDE90024DD26 /* DetailRecordTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B15A0484262AFDE90024DD26 /* DetailRecordTableViewCell.xib */; };
 		B1758F51262696DC0030CB70 /* 陽気なあさひ.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F3F262696DC0030CB70 /* 陽気なあさひ.mp3 */; };
 		B1758F52262696DC0030CB70 /* 束の間の休息.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F40262696DC0030CB70 /* 束の間の休息.mp3 */; };
 		B1758F53262696DC0030CB70 /* 会議所.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B1758F41262696DC0030CB70 /* 会議所.mp3 */; };
@@ -44,6 +48,10 @@
 		8C9EC3502EB79D4671FCD118 /* Pods_PomodoroApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PomodoroApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B10844A02616C4BF00DC40C3 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		B1295DAF2615797C00A165A0 /* UIColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHex.swift; sourceTree = "<group>"; };
+		B15A0475262AE6EB0024DD26 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		B15A0478262AFAAB0024DD26 /* DetailRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecordViewController.swift; sourceTree = "<group>"; };
+		B15A0483262AFDE90024DD26 /* DetailRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecordTableViewCell.swift; sourceTree = "<group>"; };
+		B15A0484262AFDE90024DD26 /* DetailRecordTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailRecordTableViewCell.xib; sourceTree = "<group>"; };
 		B1758F3F262696DC0030CB70 /* 陽気なあさひ.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "陽気なあさひ.mp3"; sourceTree = "<group>"; };
 		B1758F40262696DC0030CB70 /* 束の間の休息.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "束の間の休息.mp3"; sourceTree = "<group>"; };
 		B1758F41262696DC0030CB70 /* 会議所.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "会議所.mp3"; sourceTree = "<group>"; };
@@ -133,8 +141,11 @@
 		B1295D9F26154E8000A165A0 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				B15A047B262AFD450024DD26 /* xib */,
 				B1860FB92613F05600388EA6 /* ViewController.swift */,
 				B1B87CCA26200EC40048413A /* SettingViewController.swift */,
+				B15A0475262AE6EB0024DD26 /* RecordViewController.swift */,
+				B15A0478262AFAAB0024DD26 /* DetailRecordViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -156,6 +167,15 @@
 				B1CB1ED32623015900CE7F7A /* AlarmSoundModel.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		B15A047B262AFD450024DD26 /* xib */ = {
+			isa = PBXGroup;
+			children = (
+				B15A0483262AFDE90024DD26 /* DetailRecordTableViewCell.swift */,
+				B15A0484262AFDE90024DD26 /* DetailRecordTableViewCell.xib */,
+			);
+			path = xib;
 			sourceTree = "<group>";
 		};
 		B1758F3E262696DC0030CB70 /* sound */ = {
@@ -293,6 +313,7 @@
 				B1860FBD2613F05600388EA6 /* Main.storyboard in Resources */,
 				B1758F58262696DC0030CB70 /* タイトルコール.mp3 in Resources */,
 				B1758F51262696DC0030CB70 /* 陽気なあさひ.mp3 in Resources */,
+				B15A0486262AFDE90024DD26 /* DetailRecordTableViewCell.xib in Resources */,
 				B1758F54262696DC0030CB70 /* 水色の光.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -349,10 +370,13 @@
 				B1B87CCB26200EC40048413A /* SettingViewController.swift in Sources */,
 				B1860FBA2613F05600388EA6 /* ViewController.swift in Sources */,
 				B1CB1ED42623015900CE7F7A /* AlarmSoundModel.swift in Sources */,
+				B15A0476262AE6EB0024DD26 /* RecordViewController.swift in Sources */,
 				B1295DB02615797C00A165A0 /* UIColorHex.swift in Sources */,
+				B15A0485262AFDE90024DD26 /* DetailRecordTableViewCell.swift in Sources */,
 				B10844A12616C4BF00DC40C3 /* TimerModel.swift in Sources */,
 				B1860FB62613F05600388EA6 /* AppDelegate.swift in Sources */,
 				B1860FB82613F05600388EA6 /* SceneDelegate.swift in Sources */,
+				B15A0479262AFAAB0024DD26 /* DetailRecordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
