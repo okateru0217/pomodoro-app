@@ -263,7 +263,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkH-s3-ZQW" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="199" width="414" height="613"/>
+                                <rect key="frame" x="0.0" y="219" width="414" height="593"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XZu-2R-ARP">
@@ -281,7 +281,7 @@
                                     <action selector="dateSegmentSwitching:" destination="69T-VH-Ilq" eventType="valueChanged" id="e3J-aE-3Ng"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KmN-uA-cvN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KmN-uA-cvN">
                                 <rect key="frame" x="157" y="137" width="100" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="Zav-07-YHP"/>
@@ -291,7 +291,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iE-Fz-njC">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iE-Fz-njC">
                                 <rect key="frame" x="162.5" y="178" width="89" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4L8-ue-lYs"/>
@@ -323,7 +323,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="CkH-s3-ZQW" secondAttribute="bottom" constant="30" id="1rP-Gi-CB3"/>
                             <constraint firstItem="5iE-Fz-njC" firstAttribute="leading" secondItem="T7x-ej-5zf" secondAttribute="trailing" constant="45" id="34b-9e-XLu"/>
-                            <constraint firstItem="CkH-s3-ZQW" firstAttribute="top" secondItem="5iE-Fz-njC" secondAttribute="bottom" id="7o0-2v-my5"/>
+                            <constraint firstItem="CkH-s3-ZQW" firstAttribute="top" secondItem="5iE-Fz-njC" secondAttribute="bottom" constant="20" id="7o0-2v-my5"/>
                             <constraint firstItem="CkH-s3-ZQW" firstAttribute="leading" secondItem="u4F-Vl-cP4" secondAttribute="leading" id="8he-m4-1UD"/>
                             <constraint firstItem="1RU-m2-7cn" firstAttribute="leading" secondItem="5iE-Fz-njC" secondAttribute="trailing" constant="45" id="Apx-Zx-Iz9"/>
                             <constraint firstItem="KmN-uA-cvN" firstAttribute="centerX" secondItem="u4F-Vl-cP4" secondAttribute="centerX" id="KE9-hR-qf7"/>
@@ -346,7 +346,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="barChartView" destination="CkH-s3-ZQW" id="GPJ-rP-AA7"/>
+                        <outlet property="dateLabel" destination="5iE-Fz-njC" id="f5H-TR-rH7"/>
                         <outlet property="segment" destination="XZu-2R-ARP" id="1L4-Ld-pKY"/>
+                        <outlet property="totalTimeLabel" destination="KmN-uA-cvN" id="36L-Tf-FiQ"/>
                         <segue destination="pUC-37-pbs" kind="show" identifier="toDetail" id="040-dN-5Wa"/>
                     </connections>
                 </viewController>

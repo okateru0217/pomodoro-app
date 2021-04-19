@@ -33,6 +33,8 @@ final class TimerModel {
     private (set) internal var countPomodoroTime = 0
     private (set) internal var timerStatusDiscriminant = 1
     private (set) internal var skipRestTimer = false
+    // 1秒毎に秒数を数える
+    private (set) internal var timerMoved: Int = 0
     
     let userDefaults = UserDefaults.standard
     
@@ -58,6 +60,7 @@ final class TimerModel {
             minutes -= 1
             seconds = 59
         }
+        countSeconds()
         // タイマー終了時の処理
         if minutes == 0 && seconds == 0 {
             AlarmSoundModel.alarmSoundModel.soundAlarm()
@@ -91,6 +94,32 @@ final class TimerModel {
                 countPomodoroTime = 0
             default: break
             }
+        }
+    }
+    
+    // 1秒毎に秒数の記録をとる
+    func countSeconds() {
+        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
+        case .pomodoroTimer:
+            timerMoved += 1
+        default: break
+        }
+    }
+    
+    // バックグラウンド時の1秒毎の秒数の記録をとる
+    func backgroundCountSeconds(backgroundTime: Int) {
+        let timeLag = 3
+        let setLimit = TimerModel.timerModel.limit * 60 + timeLag
+        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
+        case .pomodoroTimer:
+            if setLimit < backgroundTime {
+                let beforeBackgroundMinutes = TimerModel.timerModel.minutes * 60
+                let beforeBackgroundSeconds = beforeBackgroundMinutes + TimerModel.timerModel.seconds
+                timerMoved += beforeBackgroundSeconds
+            } else {
+                timerMoved += backgroundTime
+            }
+        default: break
         }
     }
     

@@ -50,6 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         timeForeground = Date()
         if isMovingTimer {
             let diff = calender.dateComponents([.second], from: timeBackground, to: timeForeground)
+            TimerModel.timerModel.backgroundCountSeconds(backgroundTime: diff.second!)
             TimerModel.timerModel.moveTimerBackground(backgroundTime: diff.second!)
         }
     }

@@ -10,6 +10,7 @@
 		7D424972C3FD35E13BEF047F /* Pods_PomodoroApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9EC3502EB79D4671FCD118 /* Pods_PomodoroApp.framework */; };
 		B10844A12616C4BF00DC40C3 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10844A02616C4BF00DC40C3 /* TimerModel.swift */; };
 		B1295DB02615797C00A165A0 /* UIColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1295DAF2615797C00A165A0 /* UIColorHex.swift */; };
+		B14C5D38262D3C0700D59B7E /* GraphDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14C5D37262D3C0700D59B7E /* GraphDataModel.swift */; };
 		B15A0476262AE6EB0024DD26 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15A0475262AE6EB0024DD26 /* RecordViewController.swift */; };
 		B15A0479262AFAAB0024DD26 /* DetailRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15A0478262AFAAB0024DD26 /* DetailRecordViewController.swift */; };
 		B15A0485262AFDE90024DD26 /* DetailRecordTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15A0483262AFDE90024DD26 /* DetailRecordTableViewCell.swift */; };
@@ -48,6 +49,7 @@
 		8C9EC3502EB79D4671FCD118 /* Pods_PomodoroApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PomodoroApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B10844A02616C4BF00DC40C3 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		B1295DAF2615797C00A165A0 /* UIColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorHex.swift; sourceTree = "<group>"; };
+		B14C5D37262D3C0700D59B7E /* GraphDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphDataModel.swift; sourceTree = "<group>"; };
 		B15A0475262AE6EB0024DD26 /* RecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		B15A0478262AFAAB0024DD26 /* DetailRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecordViewController.swift; sourceTree = "<group>"; };
 		B15A0483262AFDE90024DD26 /* DetailRecordTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecordTableViewCell.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				B10844A02616C4BF00DC40C3 /* TimerModel.swift */,
 				B1295DAF2615797C00A165A0 /* UIColorHex.swift */,
 				B1CB1ED32623015900CE7F7A /* AlarmSoundModel.swift */,
+				B14C5D37262D3C0700D59B7E /* GraphDataModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				B15A0476262AE6EB0024DD26 /* RecordViewController.swift in Sources */,
 				B1295DB02615797C00A165A0 /* UIColorHex.swift in Sources */,
 				B15A0485262AFDE90024DD26 /* DetailRecordTableViewCell.swift in Sources */,
+				B14C5D38262D3C0700D59B7E /* GraphDataModel.swift in Sources */,
 				B10844A12616C4BF00DC40C3 /* TimerModel.swift in Sources */,
 				B1860FB62613F05600388EA6 /* AppDelegate.swift in Sources */,
 				B1860FB82613F05600388EA6 /* SceneDelegate.swift in Sources */,
