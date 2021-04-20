@@ -15,6 +15,8 @@ final class RecordViewController: UIViewController {
     @IBOutlet weak var totalTimeLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var barChartView: BarChartView!
+    @IBOutlet weak var chevronLeftButton: UIButton!
+    @IBOutlet weak var chevronRightButton: UIButton!
     var backTimerScreenButton: UIBarButtonItem!
     
     // グラフに表示させる配列
@@ -28,8 +30,8 @@ final class RecordViewController: UIViewController {
         graphAppearance()
         dateSegmentSwitching((Any).self)
         GraphDataModel.graphDataModel.addSecondsData()
-        totalTimeLabelNumber(numberChangeReference: 0)
-        dateLabelDate()
+        putGraphLabel(numberChangeReference: 0)
+        switchingGraph()
         navigationBarStopButton()
     }
     
@@ -45,18 +47,21 @@ final class RecordViewController: UIViewController {
     
     // セグメント切り替え時
     @IBAction func dateSegmentSwitching(_ sender: Any) {
-        switchingSegmentScale()
-        switchingSegment()
+        putGraphLabel(numberChangeReference: 0)
+        switchingGraphScale()
+        switchingGraph()
     }
     
     // chevron.left
     @IBAction func previousItemsButton(_ sender: Any) {
-        totalTimeLabelNumber(numberChangeReference: 1)
+        putGraphLabel(numberChangeReference: 1)
+        switchingGraph()
     }
     
     // chevron.right
     @IBAction func nextItemsButton(_ sender: Any) {
-        totalTimeLabelNumber(numberChangeReference: -1)
+        putGraphLabel(numberChangeReference: -1)
+        switchingGraph()
     }
     
     // ナビゲーションボタンの生成
@@ -120,39 +125,54 @@ extension RecordViewController {
 
 // ラベル用
 extension RecordViewController {
-    
-    func totalTimeLabelNumber(numberChangeReference: Int) {
-        let oneHourSeconds: Int = 3600
+    // トータルポモドーロタイムを表示するための処理
+    func putGraphLabel(numberChangeReference: Int) {
         changeReference += numberChangeReference
+        let oneHourSeconds: Int = 3600
         switch segment.selectedSegmentIndex {
         case 0:
-            let targetTime = GraphDataModel.graphDataModel.currentMonthData[GraphDataModel.graphDataModel.currentMonthData.count - changeReference]["time"]
+            let particularItem = Int(DateModel.dateModel.lastDate()) - Int(DateModel.dateModel.todayDate())!
+            let particularTime = GraphDataModel.graphDataModel.currentMonthData.count - particularItem - changeReference
+            let targetTime = GraphDataModel.graphDataModel.currentMonthData[particularTime]["time"]
+            let targetDate = GraphDataModel.graphDataModel.currentMonthData[particularTime]["date"]
             // 小数第二位で繰り上げる
             let convertSecondsIntoHour = round(Double(targetTime!)! / Double(oneHourSeconds) * 10) / 10
             totalTimeLabel.text = String("\(convertSecondsIntoHour)h")
+            dateLabel.text = targetDate
         default: break
         }
+        notDestinationData()
     }
-    
-    func dateLabelDate() {
+    // chevronで表示するデータがない時
+    func notDestinationData() {
         switch segment.selectedSegmentIndex {
         case 0:
-            dateLabel.text = GraphDataModel.graphDataModel.todayDate()
+            if dateLabel.text == "\(DateModel.dateModel.currentMonth())/1" {
+                chevronLeftButton.isEnabled = false
+            } else if dateLabel.text == "\(DateModel.dateModel.currentMonth())/\(DateModel.dateModel.todayDate())" {
+                chevronRightButton.isEnabled = false
+            } else {
+                chevronLeftButton.isEnabled = true
+                chevronRightButton.isEnabled = true
+            }
         default: break
         }
     }
 }
 
-// セグメント用
+// グラフ用
 extension RecordViewController {
     // セグメントに合わせて、グラフの表示を切り替える
-    func switchingSegment() {
-        let oneHourSeconds: Int = 3600
+    func switchingGraph() {
         rawData = []
+        let oneHourSeconds: Int = 3600
         switch segment.selectedSegmentIndex {
         case 0:
-            let convertSecondsIntoHour = Double(TimerModel.timerModel.timerMoved) / Double(oneHourSeconds)
-            rawData.append(Double(convertSecondsIntoHour))
+            let particularItem = Int(DateModel.dateModel.lastDate()) - Int(DateModel.dateModel.todayDate())!
+            let particularTime = GraphDataModel.graphDataModel.currentMonthData.count - particularItem - changeReference
+            let targetTime = GraphDataModel.graphDataModel.currentMonthData[particularTime]["time"]
+            let convertSecondsIntoHour = round(Double(targetTime!)! / Double(oneHourSeconds) * 10) / 10
+            rawData.append(convertSecondsIntoHour)
         case 1:
             rawData = [4.3, 8.2, 4.1, 5.9, 3.0, 9.6, 1.7]
         case 2:
@@ -167,7 +187,7 @@ extension RecordViewController {
     }
     
     // セグメントに合わせて、グラフの目盛を切り替える
-    func switchingSegmentScale() {
+    func switchingGraphScale() {
         switch segment.selectedSegmentIndex {
         case 0:
             barChartView.xAxis.enabled = false

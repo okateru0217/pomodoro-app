@@ -14,12 +14,31 @@ final class DateModel {
     
     private (set) internal var currentMonthEmptyData: [[String:String]] = []
     
-    func monthDateAssignment(currentMonthLastDay: Int) {
-        for i in 1...currentMonthLastDay {
+    func monthDateAssignment() {
+        for i in 1...lastDate() {
             currentMonthEmptyData.append(["date": "\(currentMonth())/\(i)", "time": "0"])
         }
     }
     
+    // 今日の日付を取得
+    func todayMonthDate() -> String {
+        let date = DateFormatter()
+        date.setLocalizedDateFormatFromTemplate("Md")
+        date.locale = Locale(identifier: "ja_JP")
+        let today = Date()
+        return date.string(from: today)
+    }
+    
+    // 今日の日にちを取得
+    func todayDate() -> String {
+        let date = DateFormatter()
+        date.setLocalizedDateFormatFromTemplate("d")
+        date.locale = Locale(identifier: "ja_JP")
+        let today = Date()
+        return date.string(from: today)
+    }
+    
+    // 今月は何月かを取得
     func currentMonth() -> String {
         let date = DateFormatter()
         date.setLocalizedDateFormatFromTemplate("M")
@@ -28,6 +47,7 @@ final class DateModel {
         return date.string(from: today)
     }
     
+    // 今月の末日は何日かを取得
     func lastDate() -> Int {
         let date = Date()
         let calendar = Calendar(identifier: .gregorian)

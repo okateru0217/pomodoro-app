@@ -274,7 +274,7 @@
                                 </constraints>
                                 <segments>
                                     <segment title="日"/>
-                                    <segment title="週"/>
+                                    <segment title="10日"/>
                                     <segment title="月"/>
                                 </segments>
                                 <connections>
@@ -318,6 +318,7 @@
                                     <constraint firstAttribute="height" constant="22" id="cAa-QJ-ZHd"/>
                                     <constraint firstAttribute="width" constant="17" id="qMr-ii-cxw"/>
                                 </constraints>
+                                <color key="tintColor" red="0.047058823529411764" green="0.47843137254901957" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button" image="chevron.left" catalog="system"/>
                                 <connections>
                                     <action selector="previousItemsButton:" destination="69T-VH-Ilq" eventType="touchUpInside" id="Lcv-nW-gqc"/>
@@ -352,6 +353,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="barChartView" destination="CkH-s3-ZQW" id="GPJ-rP-AA7"/>
+                        <outlet property="chevronLeftButton" destination="T7x-ej-5zf" id="uGk-TE-Jqc"/>
+                        <outlet property="chevronRightButton" destination="1RU-m2-7cn" id="Hx5-td-pI2"/>
                         <outlet property="dateLabel" destination="5iE-Fz-njC" id="f5H-TR-rH7"/>
                         <outlet property="segment" destination="XZu-2R-ARP" id="1L4-Ld-pKY"/>
                         <outlet property="totalTimeLabel" destination="KmN-uA-cvN" id="36L-Tf-FiQ"/>
