@@ -17,10 +17,10 @@ final class RecordViewController: UIViewController {
     @IBOutlet weak var barChartView: BarChartView!
     var backTimerScreenButton: UIBarButtonItem!
     
-    // タイマーの秒数を数える
     // グラフに表示させる配列
     private var rawData: [Double] = []
-    
+    // chevronアイコンで表示を変えるための変数
+    private var changeReference = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ final class RecordViewController: UIViewController {
         graphAppearance()
         dateSegmentSwitching((Any).self)
         GraphDataModel.graphDataModel.addSecondsData()
-        totalTimeLabelNumber()
+        totalTimeLabelNumber(numberChangeReference: 0)
         dateLabelDate()
         navigationBarStopButton()
     }
@@ -47,6 +47,16 @@ final class RecordViewController: UIViewController {
     @IBAction func dateSegmentSwitching(_ sender: Any) {
         switchingSegmentScale()
         switchingSegment()
+    }
+    
+    // chevron.left
+    @IBAction func previousItemsButton(_ sender: Any) {
+        totalTimeLabelNumber(numberChangeReference: 1)
+    }
+    
+    // chevron.right
+    @IBAction func nextItemsButton(_ sender: Any) {
+        totalTimeLabelNumber(numberChangeReference: -1)
     }
     
     // ナビゲーションボタンの生成
@@ -88,13 +98,6 @@ extension RecordViewController {
     }
     
     //x軸のラベルを設定する
-    // セグメントが「日」選択時
-    class dateBarChartFormatter: NSObject, IAxisValueFormatter {
-        let months: [String]! = ["Jan"]
-        func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-            return months[Int(value)]
-        }
-    }
     // セグメントが「週」選択時
     class weekBarChartFormatter: NSObject, IAxisValueFormatter {
         let week: [String]! = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -118,11 +121,13 @@ extension RecordViewController {
 // ラベル用
 extension RecordViewController {
     
-    func totalTimeLabelNumber() {
+    func totalTimeLabelNumber(numberChangeReference: Int) {
         let oneHourSeconds: Int = 3600
+        changeReference += numberChangeReference
         switch segment.selectedSegmentIndex {
         case 0:
-            let targetTime = GraphDataModel.graphDataModel.currentMonthData[GraphDataModel.graphDataModel.currentMonthData.count - 1]["time"]
+            let targetTime = GraphDataModel.graphDataModel.currentMonthData[GraphDataModel.graphDataModel.currentMonthData.count - changeReference]["time"]
+            // 小数第二位で繰り上げる
             let convertSecondsIntoHour = round(Double(targetTime!)! / Double(oneHourSeconds) * 10) / 10
             totalTimeLabel.text = String("\(convertSecondsIntoHour)h")
         default: break
@@ -130,13 +135,9 @@ extension RecordViewController {
     }
     
     func dateLabelDate() {
-        let date = DateFormatter()
-        date.setLocalizedDateFormatFromTemplate("Md")
-        date.locale = Locale(identifier: "ja_JP")
-        let today = Date()
         switch segment.selectedSegmentIndex {
         case 0:
-            dateLabel.text = date.string(from: today)
+            dateLabel.text = GraphDataModel.graphDataModel.todayDate()
         default: break
         }
     }
@@ -169,12 +170,13 @@ extension RecordViewController {
     func switchingSegmentScale() {
         switch segment.selectedSegmentIndex {
         case 0:
-            barChartView.xAxis.labelCount = 1
-            barChartView.xAxis.valueFormatter = dateBarChartFormatter()
+            barChartView.xAxis.enabled = false
         case 1:
+            barChartView.xAxis.enabled = true
             barChartView.xAxis.labelCount = 7
             barChartView.xAxis.valueFormatter = weekBarChartFormatter()
         case 2:
+            barChartView.xAxis.enabled = true
             barChartView.xAxis.labelCount = 10
             barChartView.xAxis.valueFormatter = monthBarChartFormatter()
         default: break
