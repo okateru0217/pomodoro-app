@@ -22,20 +22,39 @@ class DetailRecordViewController: UIViewController {
     private var detailRecordItem = [
         ["item": "累計のポモドーロ時間", "time": "0"],
         ["item": "本日のポモドーロ時間", "time": "0"],
-        ["item": "今週のポモドーロ時間", "time": "0"],
+        ["item": "最近7日間のポモドーロ時間", "time": "0"],
         ["item": "今月のポモドーロ時間", "time": "0"],
         ["item": "1日のポモドーロ時間の平均", "time": "0"],
-        ["item": "1週間のポモドーロ時間の平均", "time": "0"],
-        ["item": "過去3日のポモドーロ時間の平均", "time": "0"]
+        ["item": "最近3日間のポモドーロ時間の平均", "time": "0"],
+        ["item": "最近7日間のポモドーロ時間の平均", "time": "0"]
     ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewDelegate()
         detailRecordViewRegister()
+        displayData()
+    }
+    
+    func displayData() {
+        // 累計のポモドーロ時間
+        detailRecordItem[0]["time"] = String(DetailRecordDataModel.detailRecordDataModel.totalTimeRecord())
+        // 本日のポモドーロ時間
+        detailRecordItem[1]["time"] = String(DetailRecordDataModel.detailRecordDataModel.todayTimeRecord())
+        // 最近7日間のポモドーロ時間
+        detailRecordItem[2]["time"] = String(DetailRecordDataModel.detailRecordDataModel.recentlySevenDaysTimeRecord())
+        // "今月のポモドーロ時間"
+        detailRecordItem[3]["time"] = String(DetailRecordDataModel.detailRecordDataModel.currentTimeRecord())
+        // 1日のポモドーロ時間の平均
+        detailRecordItem[4]["time"] = String(DetailRecordDataModel.detailRecordDataModel.dailyTimeAverageRecord())
+        // 最近3日間のポモドーロ時間の平均
+        detailRecordItem[5]["time"] = String(DetailRecordDataModel.detailRecordDataModel.recentlyThreeDaysTimeAverageRecord())
+        // 最近7日間のポモドーロ時間の平均
+        detailRecordItem[6]["time"] = String(DetailRecordDataModel.detailRecordDataModel.recentlySevenDaysTimeAverageRecord())
     }
 }
 
+// テーブルビュー用
 extension DetailRecordViewController: UITableViewDelegate, UITableViewDataSource {
     func tableViewDelegate() {
         detailRecordTableView.delegate = self

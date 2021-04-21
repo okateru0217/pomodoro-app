@@ -27,6 +27,7 @@ final class RecordViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        segmentAppearance()
         displayGraph()
         graphAppearance()
         dateSegmentSwitching((Any).self)
@@ -72,6 +73,11 @@ final class RecordViewController: UIViewController {
     func navigationBarStopButton() {
         backTimerScreenButton = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(backTimerScreen(_:)))
         self.navigationItem.leftBarButtonItems = [backTimerScreenButton]
+    }
+    
+    // セグメントの見た目
+    func segmentAppearance() {
+        segment.setTitleTextAttributes( [NSAttributedString.Key.foregroundColor:UIColor.black], for: .normal)
     }
 }
 
@@ -151,7 +157,6 @@ extension RecordViewController {
     // トータルポモドーロタイムを表示するための処理
     func putGraphLabel(numberChangeReference: Int) {
         changeReference += numberChangeReference
-//        let oneHourSeconds: Int = 3600
         switch segment.selectedSegmentIndex {
         case 0:
             totalTimeLabel.text = String("\(GraphDataModel.graphDataModel.graphTimeLabel(segmentIndex: segment.selectedSegmentIndex, referenceType: changeReference))h")

@@ -34,7 +34,9 @@ final class TimerModel {
     private (set) internal var timerStatusDiscriminant = 1
     private (set) internal var skipRestTimer = false
     // 1秒毎に秒数を数える
-    private (set) internal var timerMoved: Int = 0
+    private (set) internal var timerMoved: Int = 1800
+    // 累計のポモドーロタイム
+    private (set) internal var totalPomodoroTime: Int = 0
     
     let userDefaults = UserDefaults.standard
     
@@ -102,6 +104,7 @@ final class TimerModel {
         switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
         case .pomodoroTimer:
             timerMoved += 1
+            totalPomodoroTime += 1
         default: break
         }
     }
@@ -116,8 +119,10 @@ final class TimerModel {
                 let beforeBackgroundMinutes = TimerModel.timerModel.minutes * 60
                 let beforeBackgroundSeconds = beforeBackgroundMinutes + TimerModel.timerModel.seconds
                 timerMoved += beforeBackgroundSeconds
+                totalPomodoroTime += beforeBackgroundSeconds
             } else {
                 timerMoved += backgroundTime
+                totalPomodoroTime +=  backgroundTime
             }
         default: break
         }
