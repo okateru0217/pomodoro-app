@@ -46,7 +46,7 @@ final class GraphDataModel {
     
     // グラフのタイマー時間の総数ラベル
     func graphTimeLabel(segmentIndex: Int, referenceType: Int) -> Double {
-        let oneHourSeconds: Int = 1
+        let oneHourSeconds: Int = 3600
         var convertSecondsIntoHour: Double?
         switch segmentIndex {
         case 0:

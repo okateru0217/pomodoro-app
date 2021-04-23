@@ -243,6 +243,7 @@
                         <outlet property="cancelTimerButton" destination="Bhv-aj-Mba" id="BQ7-3L-3jh"/>
                         <outlet property="minutesLabel" destination="N8A-MW-zMz" id="n6d-wc-hAn"/>
                         <outlet property="operationTimerButton" destination="87j-UO-KH1" id="YRO-WB-nOM"/>
+                        <outlet property="recordButton" destination="PCE-BH-pWp" id="AuO-tX-yf5"/>
                         <outlet property="secondsLabel" destination="AFy-V3-sC6" id="Znn-gY-vY5"/>
                         <outlet property="settingButton" destination="e5F-H6-93F" id="A0z-1v-sVk"/>
                         <outlet property="timerCircle" destination="QF5-sH-jGg" id="6lh-LJ-ruW"/>

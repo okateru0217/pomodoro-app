@@ -7,6 +7,7 @@
 
 import UIKit
 import MBCircularProgressBar
+import Instructions
 
 final class ViewController: UIViewController {
     public static let viewController = ViewController()
@@ -17,11 +18,16 @@ final class ViewController: UIViewController {
     @IBOutlet weak var operationTimerButton: UIButton!
     @IBOutlet weak var cancelTimerButton: UIButton!
     @IBOutlet weak var settingButton: UIButton!
+    @IBOutlet weak var recordButton: UIButton!
     
     private var timer = Timer()
     private let pomodoroTimerColor = "FE6348"
     private let restTimerColor = "1BD1AE"
     private let longRestTimerColor = "4C6CB3"
+    private var isFirstLaunch = false
+    let userDefaults = UserDefaults.standard
+    
+    private let coachMarksController = CoachMarksController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +36,13 @@ final class ViewController: UIViewController {
         timerAppearance()
         SceneDelegate.sceneDelegate.setUpMovingTimer()
         GraphDataModel.graphDataModel.addSecondsData()
+        coachMarksControllerDelegate()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         timerAppearance()
         cancelTimer((Any).self)
+        tutorialExecution()
     }
     
     @IBAction func transitionSetting(_ sender: Any) {
@@ -231,5 +239,54 @@ extension ViewController {
         let oneMinutesSeconds = 60
         timerCircle.maxValue = CGFloat(timerLimitStatus * oneMinutesSeconds)
         timerCircle.value = CGFloat(timerCircle.maxValue - CGFloat((TimerModel.timerModel.minutes * oneMinutesSeconds) + TimerModel.timerModel.seconds))
+    }
+}
+
+extension ViewController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
+    func tutorialExecution() {
+        isFirstLaunch = userDefaults.bool(forKey: "isFirstLaunch")
+        if isFirstLaunch {
+            isFirstLaunch = userDefaults.bool(forKey: "isFirstLaunch")
+        }
+        if !isFirstLaunch {
+            isFirstLaunch = !isFirstLaunch
+            userDefaults.set(isFirstLaunch, forKey: "isFirstLaunch")
+            self.coachMarksController.start(in: .currentWindow(of: self))
+        }
+    }
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(
+            withArrow: true,
+            arrowOrientation: coachMark.arrowOrientation
+        )
+        switch index {
+            case 0:
+                coachViews.bodyView.hintLabel.text = "開始ボタンからすぐにタイマーをスタートすることができます"
+                coachViews.bodyView.nextLabel.text = "OK!"
+            case 1:
+                coachViews.bodyView.hintLabel.text = "記録画面です\nあなたの頑張りを見ることができます"
+                coachViews.bodyView.nextLabel.text = "OK!"
+            case 2:
+                coachViews.bodyView.hintLabel.text = "設定画面です\nタイマーやアラームの設定ができます\nアラームを鳴らすにはユーザー通知の許可が必要です"
+                coachViews.bodyView.nextLabel.text = "OK!"
+        case 3:
+            coachViews.bodyView.hintLabel.text = "こちらのボタンを押して、ユーザー通知の許可を完了しましょう！"
+            coachViews.bodyView.nextLabel.text = "OK!"
+            default:break
+        }
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        let highlightViews: Array<UIView> = [operationTimerButton, recordButton, settingButton, settingButton]
+        return coachMarksController.helper.makeCoachMark(for: highlightViews[index])
+    }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 4
+    }
+    
+    func coachMarksControllerDelegate() {
+        self.coachMarksController.dataSource = self
     }
 }
