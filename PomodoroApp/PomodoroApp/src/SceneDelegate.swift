@@ -38,6 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+        GraphDataModel.graphDataModel.setCurrentMonthDataUserDefautls()
         userDefaults.removeObject(forKey: "isMovingTimer")
     }
 
@@ -53,6 +54,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, UNUserNotificationCente
             TimerModel.timerModel.backgroundCountSeconds(backgroundTime: diff.second!)
             TimerModel.timerModel.moveTimerBackground(backgroundTime: diff.second!)
         }
+        TimerModel.timerModel.resetTimerMoved()
     }
     
     // バックグラウンド移行時

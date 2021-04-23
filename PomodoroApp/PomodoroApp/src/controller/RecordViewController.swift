@@ -28,10 +28,10 @@ final class RecordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         segmentAppearance()
+        GraphDataModel.graphDataModel.addSecondsData()
         displayGraph()
         graphAppearance()
         dateSegmentSwitching((Any).self)
-        GraphDataModel.graphDataModel.addSecondsData()
         putGraphLabel(numberChangeReference: 0)
         switchingGraph()
         navigationBarStopButton()

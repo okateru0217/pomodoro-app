@@ -26,7 +26,7 @@ class DetailRecordViewController: UIViewController {
         ["item": "今月のポモドーロ時間", "time": "0"],
         ["item": "1日のポモドーロ時間の平均", "time": "0"],
         ["item": "最近3日間のポモドーロ時間の平均", "time": "0"],
-        ["item": "最近7日間のポモドーロ時間の平均", "time": "0"]
+        ["item": "最近7日間のポモドーロ時間の平均", "time": "0"],
     ]
     
     override func viewDidLoad() {

@@ -29,6 +29,7 @@ final class ViewController: UIViewController {
         AlarmSoundModel.alarmSoundModel.setAlarmUserDefaults()
         timerAppearance()
         SceneDelegate.sceneDelegate.setUpMovingTimer()
+        GraphDataModel.graphDataModel.addSecondsData()
     }
     
     override func viewDidAppear(_ animated: Bool) {

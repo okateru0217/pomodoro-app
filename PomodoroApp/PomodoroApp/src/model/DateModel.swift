@@ -20,6 +20,15 @@ final class DateModel {
         }
     }
     
+    // 今日の年月日を取得
+    func todayFullDate() -> String {
+        let date = DateFormatter()
+        date.setLocalizedDateFormatFromTemplate("yyyyMd")
+        date.locale = Locale(identifier: "ja_JP")
+        let today = Date()
+        return date.string(from: today)
+    }
+    
     // 今日の日付を取得
     func todayMonthDate() -> String {
         let date = DateFormatter()

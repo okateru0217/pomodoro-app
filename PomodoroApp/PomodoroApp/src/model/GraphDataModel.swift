@@ -14,47 +14,19 @@ final class GraphDataModel {
     
     private var secondsTotalTime = 0
     
-    var calcData: [Double] = []
+    private (set) internal var calcData: [Double] = []
+    private (set) internal var isFirstLogin = false
+    let userDefaults = UserDefaults.standard
     
     // 今月分のタイマーデータ
-    private (set) internal var currentMonthData: [[String:String]] = [
-        ["date": "4/1", "time": "1800"],
-        ["date": "4/2", "time": "1240"],
-        ["date": "4/3", "time": "780"],
-        ["date": "4/4", "time": "1800"],
-        ["date": "4/5", "time": "1240"],
-        ["date": "4/6", "time": "7800"],
-        ["date": "4/7", "time": "1800"],
-        ["date": "4/8", "time": "1240"],
-        ["date": "4/9", "time": "7800"],
-        ["date": "4/10", "time": "1800"],
-        ["date": "4/11", "time": "1240"],
-        ["date": "4/12", "time": "7800"],
-        ["date": "4/13", "time": "1800"],
-        ["date": "4/14", "time": "1240"],
-        ["date": "4/15", "time": "7800"],
-        ["date": "4/16", "time": "1800"],
-        ["date": "4/17", "time": "1240"],
-        ["date": "4/18", "time": "1800"],
-        ["date": "4/19", "time": "1240"],
-        ["date": "4/20", "time": "7800"],
-        ["date": "4/21", "time": "6000"],
-        ["date": "4/22", "time": "0"],
-        ["date": "4/23", "time": "0"],
-        ["date": "4/24", "time": "0"],
-        ["date": "4/25", "time": "0"],
-        ["date": "4/26", "time": "0"],
-        ["date": "4/27", "time": "0"],
-        ["date": "4/28", "time": "0"],
-        ["date": "4/29", "time": "0"],
-        ["date": "4/30", "time": "0"]
-    ]
+    private (set) internal var currentMonthData: [[String:String]] = []
 
     // 秒数データを管理する配列の操作
     func addSecondsData() {
+        setTimeDataUserDefaults()
         let particularItem = Int(DateModel.dateModel.lastDate()) - Int(DateModel.dateModel.todayDate())!
         // 月が変わった場合、currentMonthData(配列)にtimeが0のデータを入れる
-        let monthLastDay = currentMonthData[currentMonthData.count - 1]["date"]
+        let monthLastDay = currentMonthData[currentMonthData.count - 1]["date"]!
         let currentMonthLastDay = "\(DateModel.dateModel.currentMonth())/\(DateModel.dateModel.lastDate())"
         if monthLastDay != currentMonthLastDay {
             DateModel.dateModel.monthDateAssignment()
@@ -66,14 +38,15 @@ final class GraphDataModel {
             currentMonthData = DateModel.dateModel.currentMonthEmptyData
         }
         // 配列に今日の日付分のデータが既に存在する場合
-        if DateModel.dateModel.todayMonthDate() == currentMonthData[currentMonthData.count - particularItem - 1]["date"]! {
+        if "\(DateModel.dateModel.currentMonth())/\(DateModel.dateModel.todayDate())" == currentMonthData[currentMonthData.count - particularItem - 1]["date"]! {
             currentMonthData[currentMonthData.count - particularItem - 1]["time"] = String(TimerModel.timerModel.timerMoved)
+            userDefaults.set(currentMonthData, forKey: "currentMonthData")
         }
     }
     
     // グラフのタイマー時間の総数ラベル
     func graphTimeLabel(segmentIndex: Int, referenceType: Int) -> Double {
-        let oneHourSeconds: Int = 3600
+        let oneHourSeconds: Int = 1
         var convertSecondsIntoHour: Double?
         switch segmentIndex {
         case 0:
@@ -166,5 +139,28 @@ final class GraphDataModel {
         let targetTime = GraphDataModel.graphDataModel.currentMonthData[target]["time"]
         let convertSecondsIntoHour = round(Double(targetTime!)! / Double(oneHourSeconds) * 10) / 10
         calcData.append(convertSecondsIntoHour)
+    }
+    
+    // userDefaults呼び出し
+    func setTimeDataUserDefaults() {
+        isFirstLogin = userDefaults.bool(forKey: "isFirstLogin")
+        if isFirstLogin {
+            isFirstLogin = userDefaults.bool(forKey: "isFirstLogin")
+        }
+        guard isFirstLogin else {
+            isFirstLogin = !isFirstLogin
+            userDefaults.set(isFirstLogin, forKey: "isFirstLogin")
+            // データが空なので、timeが0のデータを入れる
+            if currentMonthData.count == 0 {
+                DateModel.dateModel.monthDateAssignment()
+                currentMonthData = DateModel.dateModel.currentMonthEmptyData
+            }
+            return
+        }
+        currentMonthData = userDefaults.value(forKey: "currentMonthData") as! [[String:String]]
+    }
+    
+    func setCurrentMonthDataUserDefautls() {
+        userDefaults.set(currentMonthData, forKey: "currentMonthData")
     }
 }
