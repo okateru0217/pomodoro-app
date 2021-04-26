@@ -33,6 +33,12 @@ final class TimerModel {
     private (set) internal var countPomodoroTime = 0
     private (set) internal var timerStatusDiscriminant = 1
     private (set) internal var skipRestTimer = false
+    // 1秒毎に秒数を数える
+    private (set) internal var timerMoved: Int = 0
+    private (set) internal var todayDate: String?
+    private (set) internal var lastLoginDate: String?
+    // 累計のポモドーロタイム
+    private (set) internal var totalPomodoroTime: Int = 0
     
     let userDefaults = UserDefaults.standard
     
@@ -58,6 +64,7 @@ final class TimerModel {
             minutes -= 1
             seconds = 59
         }
+        countSeconds()
         // タイマー終了時の処理
         if minutes == 0 && seconds == 0 {
             AlarmSoundModel.alarmSoundModel.soundAlarm()
@@ -91,6 +98,41 @@ final class TimerModel {
                 countPomodoroTime = 0
             default: break
             }
+        }
+    }
+    
+    // 1秒毎に秒数の記録をとる
+    func countSeconds() {
+        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
+        case .pomodoroTimer:
+            timerMoved += 1
+            userDefaults.set(TimerModel.timerModel.timerMoved, forKey: "timerMoved")
+            totalPomodoroTime += 1
+            userDefaults.set(TimerModel.timerModel.totalPomodoroTime, forKey: "totalPomodoroTime")
+        default: break
+        }
+    }
+    
+    // バックグラウンド時の1秒毎の秒数の記録をとる
+    func backgroundCountSeconds(backgroundTime: Int) {
+        let timeLag = 3
+        let setLimit = TimerModel.timerModel.limit * 60 + timeLag
+        switch TimerModel.TimerStatus(rawValue: TimerModel.timerModel.timerStatusDiscriminant) {
+        case .pomodoroTimer:
+            if setLimit < backgroundTime {
+                let beforeBackgroundMinutes = TimerModel.timerModel.minutes * 60
+                let beforeBackgroundSeconds = beforeBackgroundMinutes + TimerModel.timerModel.seconds
+                timerMoved += beforeBackgroundSeconds
+                userDefaults.set(TimerModel.timerModel.timerMoved, forKey: "timerMoved")
+                totalPomodoroTime += beforeBackgroundSeconds
+                userDefaults.set(TimerModel.timerModel.totalPomodoroTime, forKey: "totalPomodoroTime")
+            } else {
+                timerMoved += backgroundTime
+                userDefaults.set(TimerModel.timerModel.timerMoved, forKey: "timerMoved")
+                totalPomodoroTime +=  backgroundTime
+                userDefaults.set(TimerModel.timerModel.totalPomodoroTime, forKey: "totalPomodoroTime")
+            }
+        default: break
         }
     }
     
@@ -174,6 +216,17 @@ final class TimerModel {
         userDefaults.set(skipRestTimer, forKey: "skipRestTimer")
     }
     
+    // 日付を跨いだ時に、timerMovedをリセットする
+    func resetTimerMoved() {
+        todayDate = DateModel.dateModel.todayFullDate()
+        if todayDate != lastLoginDate {
+            timerMoved = 0
+            self.userDefaults.set(timerMoved, forKey: "timerMoved")
+            lastLoginDate = DateModel.dateModel.todayFullDate()
+            self.userDefaults.set(lastLoginDate, forKey: "lastLoginDate")
+        }
+    }
+    
     // userDefaults呼び出し
     func setTimerUserDefaults() {
         limit = userDefaults.integer(forKey: "limit")
@@ -181,6 +234,9 @@ final class TimerModel {
         longRestLimit = userDefaults.integer(forKey: "longRestLimit")
         whileLongRestLimit = userDefaults.integer(forKey: "whileLongRestLimit")
         skipRestTimer = userDefaults.bool(forKey: "skipRestTimer")
+        timerMoved = userDefaults.integer(forKey: "timerMoved")
+        totalPomodoroTime = userDefaults.integer(forKey: "totalPomodoroTime")
+        lastLoginDate = userDefaults.string(forKey: "lastLoginDate")
         // 初回起動時の値
         if limit == 0 {
             limit = 25
