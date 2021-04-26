@@ -10,24 +10,33 @@ import UIKit
 class DetailRecordViewController: UIViewController {
 
     @IBOutlet weak var detailRecordTableView: UITableView!
+
+    private var detailRecordItem = [[RecordItem]]()
     
-    private var totalPomodoroTime = 0
-    private var todayPomodoroTime = 0
-    private var thisWeekPomodoroTime = 0
-    private var currentMonthPomodoroTime = 0
-    private var oneDatePomodoroTimeAverage = 0
-    private var weekPomodoroTimeAverage = 0
-    private var pastThreeDatePomodoroTimeAverage = 0
+    struct RecordItem {
+        var item: String
+        var time: String
+    }
     
-    private var detailRecordItem = [
-        ["item": "累計のポモドーロ時間", "time": "0"],
-        ["item": "本日のポモドーロ時間", "time": "0"],
-        ["item": "最近7日間のポモドーロ時間", "time": "0"],
-        ["item": "今月のポモドーロ時間", "time": "0"],
-        ["item": "1日のポモドーロ時間の平均", "time": "0"],
-        ["item": "最近3日間のポモドーロ時間の平均", "time": "0"],
-        ["item": "最近7日間のポモドーロ時間の平均", "time": "0"],
-    ]
+    struct RecordItems {
+        var total: RecordItem
+        var today: RecordItem
+        var recentlySevenDays: RecordItem
+        var currentMonth: RecordItem
+        var dateAverage: RecordItem
+        var recentlyThreeDaysAverage: RecordItem
+        var recentlySevenDaysAverage: RecordItem
+        
+        init() {
+            self.total = RecordItem(item: "累計ポモドーロ時間", time: String(DetailRecordDataModel.detailRecordDataModel.totalTimeRecord()))
+            self.today = RecordItem(item: "本日のポモドーロ時間", time: String(DetailRecordDataModel.detailRecordDataModel.todayTimeRecord()))
+            self.recentlySevenDays = RecordItem(item: "最近7日間のポモドーロ時間", time: String(DetailRecordDataModel.detailRecordDataModel.recentlySevenDaysTimeRecord()))
+            self.currentMonth = RecordItem(item: "今月のポモドーロ時間", time: String(DetailRecordDataModel.detailRecordDataModel.currentTimeRecord()))
+            self.dateAverage = RecordItem(item: "1日のポモドーロ時間の平均", time: String(DetailRecordDataModel.detailRecordDataModel.dailyTimeAverageRecord()))
+            self.recentlyThreeDaysAverage = RecordItem(item: "最近3日間のポモドーロ時間の平均", time: String(DetailRecordDataModel.detailRecordDataModel.recentlyThreeDaysTimeAverageRecord()))
+            self.recentlySevenDaysAverage = RecordItem(item: "最近7日間のポモドーロ時間の平均", time: String(DetailRecordDataModel.detailRecordDataModel.recentlySevenDaysTimeAverageRecord()))
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,20 +46,16 @@ class DetailRecordViewController: UIViewController {
     }
     
     func displayData() {
-        // 累計のポモドーロ時間
-        detailRecordItem[0]["time"] = String(DetailRecordDataModel.detailRecordDataModel.totalTimeRecord())
-        // 本日のポモドーロ時間
-        detailRecordItem[1]["time"] = String(DetailRecordDataModel.detailRecordDataModel.todayTimeRecord())
-        // 最近7日間のポモドーロ時間
-        detailRecordItem[2]["time"] = String(DetailRecordDataModel.detailRecordDataModel.recentlySevenDaysTimeRecord())
-        // "今月のポモドーロ時間"
-        detailRecordItem[3]["time"] = String(DetailRecordDataModel.detailRecordDataModel.currentTimeRecord())
-        // 1日のポモドーロ時間の平均
-        detailRecordItem[4]["time"] = String(DetailRecordDataModel.detailRecordDataModel.dailyTimeAverageRecord())
-        // 最近3日間のポモドーロ時間の平均
-        detailRecordItem[5]["time"] = String(DetailRecordDataModel.detailRecordDataModel.recentlyThreeDaysTimeAverageRecord())
-        // 最近7日間のポモドーロ時間の平均
-        detailRecordItem[6]["time"] = String(DetailRecordDataModel.detailRecordDataModel.recentlySevenDaysTimeAverageRecord())
+        let recordItems = RecordItems()
+        detailRecordItem.append(contentsOf: [
+            [recordItems.total],
+            [recordItems.today],
+            [recordItems.recentlySevenDays],
+            [recordItems.currentMonth],
+            [recordItems.dateAverage],
+            [recordItems.recentlyThreeDaysAverage],
+            [recordItems.recentlySevenDaysAverage]
+        ])
     }
 }
 
@@ -75,8 +80,8 @@ extension DetailRecordViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = detailRecordTableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! DetailRecordTableViewCell
-        cell.detailRecordItem.text = detailRecordItem[indexPath.row]["item"]
-        cell.detailRecordTime.text = detailRecordItem[indexPath.row]["time"]
+        cell.detailRecordItem.text = detailRecordItem[indexPath.row][0].item
+        cell.detailRecordTime.text = detailRecordItem[indexPath.row][0].time
         return cell
     }
 }

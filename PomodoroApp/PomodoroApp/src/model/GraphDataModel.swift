@@ -18,6 +18,13 @@ final class GraphDataModel {
     private (set) internal var isFirstLogin = false
     let userDefaults = UserDefaults.standard
     
+    // セグメントの値
+    enum SegmentIndex: Int {
+        case oneDate = 0
+        case tenDate = 1
+        case oneMonth = 2
+    }
+    
     // 今月分のタイマーデータ
     private (set) internal var currentMonthData: [[String:String]] = []
 
@@ -48,14 +55,14 @@ final class GraphDataModel {
     func graphTimeLabel(segmentIndex: Int, referenceType: Int) -> Double {
         let oneHourSeconds: Int = 3600
         var convertSecondsIntoHour: Double?
-        switch segmentIndex {
-        case 0:
+        switch SegmentIndex(rawValue: segmentIndex) {
+        case .oneDate:
             let particularItem = Int(DateModel.dateModel.lastDate()) - Int(DateModel.dateModel.todayDate())!
             let particularTime = GraphDataModel.graphDataModel.currentMonthData.count - particularItem - referenceType
             let targetTime = GraphDataModel.graphDataModel.currentMonthData[particularTime]["time"]
             // 小数第二位で繰り上げる
             convertSecondsIntoHour = round(Double(targetTime!)! / Double(oneHourSeconds) * 10) / 10
-        case 1:
+        case .tenDate:
             if referenceType == 1 {
                 secondsTotalTime = 0
                 for i in 0...9 {
@@ -72,7 +79,7 @@ final class GraphDataModel {
                     convertSecondsIntoHour = totalTime(date: i)
                 }
             }
-        case 2:
+        case .oneMonth:
             secondsTotalTime = 0
             for i in 0...GraphDataModel.graphDataModel.currentMonthData.count - 1 {
                 convertSecondsIntoHour = totalTime(date: i)
@@ -93,8 +100,8 @@ final class GraphDataModel {
     // グラフの日付ラベル
     func graphDateLabel(segmentIndex: Int, referenceType: Int) -> String {
         var targetDate: String?
-        switch segmentIndex {
-        case 0:
+        switch SegmentIndex(rawValue: segmentIndex) {
+        case .oneDate:
             let particularItem = Int(DateModel.dateModel.lastDate()) - Int(DateModel.dateModel.todayDate())!
             let particularTime = GraphDataModel.graphDataModel.currentMonthData.count - particularItem - referenceType
             targetDate = GraphDataModel.graphDataModel.currentMonthData[particularTime]["date"]!
@@ -106,12 +113,12 @@ final class GraphDataModel {
     // セグメントに合わせて、グラフの表示を切り替える
     func graphTimeCalc(segmentIndex: Int, referenceType: Int) {
         calcData = []
-        switch segmentIndex {
-        case 0:
+        switch SegmentIndex(rawValue: segmentIndex) {
+        case .oneDate:
             let particularItem = Int(DateModel.dateModel.lastDate()) - Int(DateModel.dateModel.todayDate())!
             let particularTime = GraphDataModel.graphDataModel.currentMonthData.count - particularItem - referenceType
             convertSecondsIntoTime(target: particularTime)
-        case 1:
+        case .tenDate:
             if referenceType == 1 {
                 for i in 0...9 {
                     convertSecondsIntoTime(target: i)
@@ -125,7 +132,7 @@ final class GraphDataModel {
                     convertSecondsIntoTime(target: i)
                 }
             }
-        case 2:
+        case .oneMonth:
             for i in 0...GraphDataModel.graphDataModel.currentMonthData.count - 1 {
                 convertSecondsIntoTime(target: i)
             }

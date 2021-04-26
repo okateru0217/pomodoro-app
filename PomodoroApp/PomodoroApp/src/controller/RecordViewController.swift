@@ -25,6 +25,12 @@ final class RecordViewController: UIViewController {
     private (set) internal var changeReference = 1
     private var secondsTotalTime = 0
     
+    enum SegmentIndex: Int {
+        case oneDate = 0
+        case tenDate = 1
+        case oneMonth = 2
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         segmentAppearance()
@@ -157,11 +163,11 @@ extension RecordViewController {
     // トータルポモドーロタイムを表示するための処理
     func putGraphLabel(numberChangeReference: Int) {
         changeReference += numberChangeReference
-        switch segment.selectedSegmentIndex {
-        case 0:
+        switch SegmentIndex(rawValue: segment.selectedSegmentIndex) {
+        case .oneDate:
             totalTimeLabel.text = String("\(GraphDataModel.graphDataModel.graphTimeLabel(segmentIndex: segment.selectedSegmentIndex, referenceType: changeReference))h")
             dateLabel.text = GraphDataModel.graphDataModel.graphDateLabel(segmentIndex: segment.selectedSegmentIndex, referenceType: changeReference)
-        case 1:
+        case .tenDate:
             if changeReference == 1 {
                 totalTimeLabel.text = String("\(GraphDataModel.graphDataModel.graphTimeLabel(segmentIndex: segment.selectedSegmentIndex, referenceType: changeReference))h")
                 dateLabel.text = "\(DateModel.dateModel.currentMonth())/1 ~ \(DateModel.dateModel.currentMonth())/10"
@@ -172,7 +178,7 @@ extension RecordViewController {
                 totalTimeLabel.text = String("\(GraphDataModel.graphDataModel.graphTimeLabel(segmentIndex: segment.selectedSegmentIndex, referenceType: changeReference))h")
                 dateLabel.text = "\(DateModel.dateModel.currentMonth())/21 ~ \(DateModel.dateModel.currentMonth())/\(DateModel.dateModel.lastDate())"
             }
-        case 2:
+        case .oneMonth:
             totalTimeLabel.text = String("\(GraphDataModel.graphDataModel.graphTimeLabel(segmentIndex: segment.selectedSegmentIndex, referenceType: changeReference))h")
             dateLabel.text = "\(DateModel.dateModel.currentMonth())月"
         default: break
@@ -182,8 +188,8 @@ extension RecordViewController {
     
     // chevronで表示するデータがない時
     func notDestinationData() {
-        switch segment.selectedSegmentIndex {
-        case 0:
+        switch SegmentIndex(rawValue: segment.selectedSegmentIndex) {
+        case .oneDate:
             if dateLabel.text == "\(DateModel.dateModel.currentMonth())/1" {
                 chevronLeftButton.isEnabled = false
                 chevronRightButton.isEnabled = true
@@ -194,7 +200,7 @@ extension RecordViewController {
                 chevronLeftButton.isEnabled = true
                 chevronRightButton.isEnabled = true
             }
-        case 1:
+        case .tenDate:
             if changeReference == 1 {
                 chevronLeftButton.isEnabled = false
                 chevronRightButton.isEnabled = true
@@ -205,7 +211,7 @@ extension RecordViewController {
                 chevronLeftButton.isEnabled = true
                 chevronRightButton.isEnabled = true
             }
-        case 2:
+        case .oneMonth:
             chevronLeftButton.isEnabled = false
             chevronRightButton.isEnabled = false
         default: break
@@ -217,14 +223,14 @@ extension RecordViewController {
 extension RecordViewController {
     // セグメントに合わせて、グラフの表示を切り替える
     func switchingGraph() {
-        switch segment.selectedSegmentIndex {
-        case 0:
+        switch SegmentIndex(rawValue: segment.selectedSegmentIndex) {
+        case .oneDate:
             GraphDataModel.graphDataModel.graphTimeCalc(segmentIndex: segment.selectedSegmentIndex, referenceType: changeReference)
             rawData = GraphDataModel.graphDataModel.calcData
-        case 1:
+        case .tenDate:
             GraphDataModel.graphDataModel.graphTimeCalc(segmentIndex: segment.selectedSegmentIndex, referenceType: changeReference)
             rawData = GraphDataModel.graphDataModel.calcData
-        case 2:
+        case .oneMonth:
             GraphDataModel.graphDataModel.graphTimeCalc(segmentIndex: segment.selectedSegmentIndex, referenceType: changeReference)
             rawData = GraphDataModel.graphDataModel.calcData
         default: break
@@ -234,10 +240,10 @@ extension RecordViewController {
     
     // セグメントに合わせて、グラフの目盛を切り替える
     func switchingGraphScale() {
-        switch segment.selectedSegmentIndex {
-        case 0:
+        switch SegmentIndex(rawValue: segment.selectedSegmentIndex) {
+        case .oneDate:
             barChartView.xAxis.enabled = false
-        case 1:
+        case .tenDate:
             barChartView.xAxis.enabled = true
             barChartView.xAxis.labelCount = 10
             if changeReference == 1 {
@@ -247,7 +253,7 @@ extension RecordViewController {
             } else if changeReference == -1 {
                 barChartView.xAxis.valueFormatter = weekBarChartSecondHalfFormatter()
             }
-        case 2:
+        case .oneMonth:
             barChartView.xAxis.enabled = true
             barChartView.xAxis.labelCount = 10
             barChartView.xAxis.valueFormatter = monthBarChartFormatter()
