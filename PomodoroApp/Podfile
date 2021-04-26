@@ -9,5 +9,6 @@ target 'PomodoroApp' do
 pod "MBCircularProgressBar"
 pod "Eureka"
 pod "Charts"
+pod 'Instructions', '~> 2.0.1'
 
 end

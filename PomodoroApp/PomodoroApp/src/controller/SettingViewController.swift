@@ -7,6 +7,7 @@
 
 import UIKit
 import Eureka
+import Instructions
 
 class SettingViewController: FormViewController {
     
@@ -15,12 +16,24 @@ class SettingViewController: FormViewController {
     // アラームの種類
     private (set) internal var alarmItem = ["なし", "ベル", "束の間の休息", "ほっとひといき", "エレガント", "タイトルコール", "ビリヤード", "肩の力をぬいて", "オルゴール", "おもちゃ", "朝", "夜", "会議所", "陽気なあさひ", "サンセットと黄昏", "学生", "水色の光", "草原", "百花繚乱"]
     private var appendCharacter: String?
+    private var isFirstSettingLaunch = false
+    
+    let userDefaults = UserDefaults.standard
+    
+    private let coachMarksController = CoachMarksController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SceneDelegate.sceneDelegate.localNotification()
         navigationBarStopButton()
         timerSection()
         finishedTimerSection()
+        coachMarksControllerDelegate()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tutorialExecution()
     }
     
     @objc func backTimerScreen (_ sender: UIBarButtonItem) {
@@ -140,5 +153,46 @@ extension SettingViewController {
         .onChange({ pick in
             TimerModel.timerModel.changeTimerAutomatically()
         })
+    }
+}
+
+extension SettingViewController: CoachMarksControllerDataSource, CoachMarksControllerDelegate {
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkViewsAt index: Int, madeFrom coachMark: CoachMark) -> (bodyView: (UIView & CoachMarkBodyView), arrowView: (UIView & CoachMarkArrowView)?) {
+        let coachViews = coachMarksController.helper.makeDefaultCoachViews(
+                withArrow: true,
+                arrowOrientation: coachMark.arrowOrientation
+            )
+        switch index {
+        case 0:
+            coachViews.bodyView.hintLabel.text = "こちらからタイマー画面へ戻ることができます"
+            coachViews.bodyView.nextLabel.text = "OK!"
+        default: break
+        }
+        return (bodyView: coachViews.bodyView, arrowView: coachViews.arrowView)
+    }
+    
+    func coachMarksController(_ coachMarksController: CoachMarksController, coachMarkAt index: Int) -> CoachMark {
+        let highlightViews: Array<UIView> = [backTimerScreenButton .value(forKey: "view") as! UIView]
+        return coachMarksController.helper.makeCoachMark(for: highlightViews[index])
+    }
+    
+    func numberOfCoachMarks(for coachMarksController: CoachMarksController) -> Int {
+        return 1
+    }
+    
+    func tutorialExecution() {
+        isFirstSettingLaunch = userDefaults.bool(forKey: "isFirstSettingLaunch")
+        if isFirstSettingLaunch {
+            isFirstSettingLaunch = userDefaults.bool(forKey: "isFirstSettingLaunch")
+        }
+        if !isFirstSettingLaunch {
+            isFirstSettingLaunch = !isFirstSettingLaunch
+            userDefaults.set(isFirstSettingLaunch, forKey: "isFirstSettingLaunch")
+            self.coachMarksController.start(in: .currentWindow(of: self))
+        }
+    }
+    
+    func coachMarksControllerDelegate() {
+        self.coachMarksController.dataSource = self
     }
 }
