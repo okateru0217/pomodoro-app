@@ -28,6 +28,7 @@ class SettingViewController: FormViewController {
         navigationBarStopButton()
         timerSection()
         finishedTimerSection()
+        otherSection()
         coachMarksControllerDelegate()
     }
     
@@ -153,6 +154,20 @@ extension SettingViewController {
         .onChange({ pick in
             TimerModel.timerModel.changeTimerAutomatically()
         })
+    }
+    
+    // その他
+    func otherSection() {
+        form +++ Section("その他")
+            <<< LabelRow("privacyPolicy") {
+                $0.title = "プライバシーポリシー"
+            }
+            .onCellSelection({ pick, row  in
+                let url = NSURL(string: "https://okateru0217.github.io/PomodoroAppPrivacyPolicy/")
+                if UIApplication.shared.canOpenURL(url! as URL){
+                    UIApplication.shared.open(url! as URL, options: [:], completionHandler: nil)
+                }
+            })
     }
 }
 
